@@ -74,7 +74,7 @@ public class CustomLinkedListTest {
     }
 
     @Test
-    public void testAddAll() {
+    public void testAddAllCollection() {
         List<Integer> collection = Arrays.asList(4, 5, 6);
         list.addAll(collection);
 
@@ -82,6 +82,21 @@ public class CustomLinkedListTest {
         assertTrue(list.contains(4));
         assertTrue(list.contains(5));
         assertTrue(list.contains(6));
+    }
+
+    @Test
+    public void testAddAllCustomList() {
+        CustomLinkedList<Integer> customList = new CustomLinkedList<>();
+        customList.add(1);
+        customList.add(2);
+        customList.add(3);
+
+        list.addAll(customList);
+
+        assertEquals(3, list.size());
+        assertTrue(list.contains(1));
+        assertTrue(list.contains(2));
+        assertTrue(list.contains(3));
     }
 
     @Test

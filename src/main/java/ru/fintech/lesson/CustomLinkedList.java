@@ -133,9 +133,10 @@ public class CustomLinkedList<T> {
     }
 
     /**
-     * Добавляет все элементы списка в конец нашего списка
+     * Добавляет все элементы коллекции в конец нашего списка
      *
      * @param collection - добавляемая коллекция
+     * @return true - элементы добавлены
      */
     public boolean addAll(Collection<? extends T> collection) {
         if (collection == null) {
@@ -144,6 +145,26 @@ public class CustomLinkedList<T> {
 
         for (T element : collection) {
             add(element);
+        }
+
+        return true;
+    }
+
+    /**
+     * Добавляет все элементы списка в конец нашего списка
+     * @param list - добавляемый список
+     * @return true - элементы добавлены
+     */
+    public boolean addAll(CustomLinkedList<T> list) {
+        if (list == null) {
+            throw new IllegalArgumentException("list является null");
+        }
+
+        ListNode<T> currentNode = list.head;
+
+        while (currentNode != null) {
+            add(currentNode.value);
+            currentNode = currentNode.next;
         }
 
         return true;
@@ -159,7 +180,9 @@ public class CustomLinkedList<T> {
                     return list;
                 },
                 (list1, list2) -> {
-                    throw new UnsupportedOperationException("Не поддерживается");
+                    list1.addAll(list2);
+
+                    return list1;
                 }
         );
 
