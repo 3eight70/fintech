@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory
 
 abstract class JsonParser<T>(private val serializer: KSerializer<T>) {
     private val log = LoggerFactory.getLogger(javaClass)
+
     @OptIn(ExperimentalSerializationApi::class)
     private val json = Json {
         ignoreUnknownKeys = true

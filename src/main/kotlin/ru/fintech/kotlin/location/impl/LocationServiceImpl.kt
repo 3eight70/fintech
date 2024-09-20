@@ -46,7 +46,8 @@ class LocationServiceImpl : LocationService {
 
     override fun updateLocation(id: Long, locationDto: LocationDto): LocationDto {
         log.info("Получен запрос на обновление локации с id: $id")
-        val location = locationRepository.findById(id) ?: throw IllegalArgumentException("Локации с id: $id не существует")
+        val location =
+            locationRepository.findById(id) ?: throw IllegalArgumentException("Локации с id: $id не существует")
 
         location.name = locationDto.name
         location.slug = locationDto.slug

@@ -32,7 +32,7 @@ class LogExecutionTimePostProcessor : BeanPostProcessor {
             var result: Any?
 
             val timeTaken = measureTimeMillis {
-                 result = invocation.proceed()
+                result = invocation.proceed()
             }
 
             if (isMethodLogExecutionTime || isClassAnnotated) {
