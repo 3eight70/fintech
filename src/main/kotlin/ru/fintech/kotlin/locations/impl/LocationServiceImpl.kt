@@ -34,7 +34,7 @@ class LocationServiceImpl : LocationService {
     }
 
     override fun createLocation(locationDto: LocationDto): LocationDto {
-        log.info("Получен запрос на создание локации с телом: $locationDto")
+        log.info("Получен запрос на создание локации с name: ${locationDto.name} и slug: ${locationDto.slug}")
         val location = Location(
             id = Random.nextLong(),
             name = locationDto.name,

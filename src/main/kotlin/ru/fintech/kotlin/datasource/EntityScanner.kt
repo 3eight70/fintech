@@ -1,7 +1,7 @@
 package ru.fintech.kotlin.datasource
 
 import org.reflections.Reflections
-import ru.fintech.kotlin.annotations.CustomEntity
+import ru.fintech.kotlin.utils.annotations.CustomEntity
 import kotlin.reflect.full.findAnnotation
 import kotlin.reflect.full.hasAnnotation
 

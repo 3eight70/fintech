@@ -1,4 +1,4 @@
-package ru.fintech.kotlin.annotations
+package ru.fintech.kotlin.utils.annotations
 
 @Target(AnnotationTarget.CLASS)
 @Retention(AnnotationRetention.RUNTIME)
