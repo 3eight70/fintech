@@ -1,13 +1,15 @@
-package ru.fintech.kotlin.locations.controller
+package ru.fintech.kotlin.location.controller
 
 import org.springframework.web.bind.annotation.*
-import ru.fintech.kotlin.locations.LocationService
-import ru.fintech.kotlin.locations.dto.LocationDto
+import ru.fintech.kotlin.location.LocationService
+import ru.fintech.kotlin.location.dto.LocationDto
+import ru.fintech.kotlin.utils.annotation.LogExecutionTime
 
 @RestController
 @RequestMapping("/api/v1/locations")
 class LocationController(private val locationService: LocationService) {
     @GetMapping
+    @LogExecutionTime
     fun getLocations(): List<LocationDto> {
         return locationService.getLocations()
     }

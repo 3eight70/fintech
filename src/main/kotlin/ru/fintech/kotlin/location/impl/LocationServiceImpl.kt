@@ -1,13 +1,13 @@
-package ru.fintech.kotlin.locations.impl
+package ru.fintech.kotlin.location.impl
 
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 import ru.fintech.kotlin.datasource.EntityScanner
 import ru.fintech.kotlin.datasource.repository.impl.CustomGenericRepository
-import ru.fintech.kotlin.locations.LocationService
-import ru.fintech.kotlin.locations.dto.LocationDto
-import ru.fintech.kotlin.locations.entity.Location
-import ru.fintech.kotlin.locations.mapper.LocationMapper
+import ru.fintech.kotlin.location.LocationService
+import ru.fintech.kotlin.location.dto.LocationDto
+import ru.fintech.kotlin.location.entity.Location
+import ru.fintech.kotlin.location.mapper.LocationMapper
 import kotlin.random.Random
 
 @Service

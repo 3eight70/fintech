@@ -1,4 +1,4 @@
-package ru.fintech.kotlin.locations.dto
+package ru.fintech.kotlin.location.dto
 
 class LocationDto(
     val id: Long,

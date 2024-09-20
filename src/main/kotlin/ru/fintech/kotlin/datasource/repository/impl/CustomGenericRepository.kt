@@ -3,7 +3,7 @@ package ru.fintech.kotlin.datasource.repository.impl
 import ru.fintech.kotlin.datasource.DataSource
 import ru.fintech.kotlin.datasource.repository.EntityRepository
 import ru.fintech.kotlin.utils.IdentifiableEntity
-import ru.fintech.kotlin.utils.annotations.CustomEntity
+import ru.fintech.kotlin.utils.annotation.CustomEntity
 import kotlin.reflect.KClass
 import kotlin.reflect.full.findAnnotation
 

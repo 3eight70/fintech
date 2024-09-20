@@ -1,10 +1,12 @@
-package ru.fintech.kotlin.categories.controller
+package ru.fintech.kotlin.category.controller
 
 import org.springframework.web.bind.annotation.*
-import ru.fintech.kotlin.categories.CategoryService
-import ru.fintech.kotlin.categories.dto.CategoryDto
-import ru.fintech.kotlin.categories.dto.RequestCategoryDto
+import ru.fintech.kotlin.category.CategoryService
+import ru.fintech.kotlin.category.dto.CategoryDto
+import ru.fintech.kotlin.category.dto.RequestCategoryDto
+import ru.fintech.kotlin.utils.annotation.LogExecutionTime
 
+@LogExecutionTime
 @RestController
 @RequestMapping("/api/v1/places/categories")
 class CategoryController(private val categoryService: CategoryService) {

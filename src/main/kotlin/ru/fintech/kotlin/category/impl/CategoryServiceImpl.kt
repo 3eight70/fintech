@@ -1,14 +1,15 @@
-package ru.fintech.kotlin.categories.impl
+package ru.fintech.kotlin.category.impl
 
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
-import ru.fintech.kotlin.categories.CategoryService
-import ru.fintech.kotlin.categories.dto.CategoryDto
-import ru.fintech.kotlin.categories.dto.RequestCategoryDto
-import ru.fintech.kotlin.categories.entity.Category
-import ru.fintech.kotlin.categories.mapper.CategoryMapper
+import ru.fintech.kotlin.category.CategoryService
+import ru.fintech.kotlin.category.dto.CategoryDto
+import ru.fintech.kotlin.category.dto.RequestCategoryDto
+import ru.fintech.kotlin.category.entity.Category
+import ru.fintech.kotlin.category.mapper.CategoryMapper
 import ru.fintech.kotlin.datasource.EntityScanner
 import ru.fintech.kotlin.datasource.repository.impl.CustomGenericRepository
+import ru.fintech.kotlin.utils.annotation.LogExecutionTime
 import kotlin.random.Random
 
 @Service

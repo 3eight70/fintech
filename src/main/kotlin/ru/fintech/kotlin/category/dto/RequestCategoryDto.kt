@@ -1,4 +1,4 @@
-package ru.fintech.kotlin.categories.dto
+package ru.fintech.kotlin.category.dto
 
 class RequestCategoryDto (
     val name: String,

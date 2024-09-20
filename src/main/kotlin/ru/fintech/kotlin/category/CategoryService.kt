@@ -1,7 +1,7 @@
-package ru.fintech.kotlin.categories
+package ru.fintech.kotlin.category
 
-import ru.fintech.kotlin.categories.dto.CategoryDto
-import ru.fintech.kotlin.categories.dto.RequestCategoryDto
+import ru.fintech.kotlin.category.dto.CategoryDto
+import ru.fintech.kotlin.category.dto.RequestCategoryDto
 
 interface CategoryService {
     fun getCategories(): List<CategoryDto>

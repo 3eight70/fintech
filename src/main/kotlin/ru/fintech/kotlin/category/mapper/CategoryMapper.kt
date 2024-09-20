@@ -1,7 +1,7 @@
-package ru.fintech.kotlin.categories.mapper
+package ru.fintech.kotlin.category.mapper
 
-import ru.fintech.kotlin.categories.dto.CategoryDto
-import ru.fintech.kotlin.categories.entity.Category
+import ru.fintech.kotlin.category.dto.CategoryDto
+import ru.fintech.kotlin.category.entity.Category
 
 object CategoryMapper {
     fun entityToDto(entity: Category): CategoryDto {

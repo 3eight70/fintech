@@ -1,7 +1,7 @@
-package ru.fintech.kotlin.categories.entity
+package ru.fintech.kotlin.category.entity
 
 import ru.fintech.kotlin.utils.IdentifiableEntity
-import ru.fintech.kotlin.utils.annotations.CustomEntity
+import ru.fintech.kotlin.utils.annotation.CustomEntity
 
 @CustomEntity(tableName = "categories")
 data class Category(

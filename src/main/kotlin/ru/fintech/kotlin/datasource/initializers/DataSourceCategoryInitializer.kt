@@ -6,7 +6,7 @@ import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import kotlinx.coroutines.runBlocking
 import org.springframework.stereotype.Service
-import ru.fintech.kotlin.categories.entity.Category
+import ru.fintech.kotlin.category.entity.Category
 import ru.fintech.kotlin.datasource.DataSourceInitializer
 import ru.fintech.kotlin.datasource.EntityScanner
 import ru.fintech.kotlin.datasource.repository.impl.CustomGenericRepository

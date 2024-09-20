@@ -1,10 +1,9 @@
-package ru.fintech.kotlin.categories.dto
+package ru.fintech.kotlin.location.dto
 
 import kotlinx.serialization.Serializable
 
 @Serializable
-class CategoryDto(
-    val id: Long,
+class LocationSerializableDto(
     val name: String,
     val slug: String
 )

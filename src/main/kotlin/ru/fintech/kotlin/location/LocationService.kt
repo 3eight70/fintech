@@ -1,6 +1,6 @@
-package ru.fintech.kotlin.locations
+package ru.fintech.kotlin.location
 
-import ru.fintech.kotlin.locations.dto.LocationDto
+import ru.fintech.kotlin.location.dto.LocationDto
 
 interface LocationService {
     fun getLocations(): List<LocationDto>

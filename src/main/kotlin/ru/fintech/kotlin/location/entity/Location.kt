@@ -1,7 +1,7 @@
-package ru.fintech.kotlin.locations.entity
+package ru.fintech.kotlin.location.entity
 
 import ru.fintech.kotlin.utils.IdentifiableEntity
-import ru.fintech.kotlin.utils.annotations.CustomEntity
+import ru.fintech.kotlin.utils.annotation.CustomEntity
 
 @CustomEntity(tableName = "locations")
 class Location (
