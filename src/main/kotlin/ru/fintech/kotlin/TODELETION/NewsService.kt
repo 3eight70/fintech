@@ -1,4 +1,4 @@
-package ru.fintech.kotlin.service
+package ru.fintech.kotlin.TODELETION
 
 import io.ktor.client.*
 import io.ktor.client.engine.cio.*
