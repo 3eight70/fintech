@@ -9,9 +9,7 @@ import ru.fintech.kotlin.datasource.DataSourceInitializer
 import ru.fintech.kotlin.datasource.EntityScanner
 
 @SpringBootApplication(scanBasePackages = ["ru.fintech.kotlin"])
-class HomeworkApplication : CommandLineRunner {
-    @Autowired
-    lateinit var dataSourceInitializer: List<DataSourceInitializer>
+class HomeworkApplication(private val dataSourceInitializer: List<DataSourceInitializer>) : CommandLineRunner {
     private val log = LoggerFactory.getLogger(HomeworkApplication::class.java)
 
     override fun run(vararg args: String?) {
