@@ -20,7 +20,7 @@ class DataSourceLocationInitializer : DataSourceInitializer() {
     override fun initializeData() {
         val client = HttpClient(CIO)
 
-        log.debug("Начал получать данные по локациям")
+        log.info("Начал получать данные по локациям")
         runBlocking {
             try {
                 val response = client.get("https://kudago.com/public-api/v1.4/locations").bodyAsText()

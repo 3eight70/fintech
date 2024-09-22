@@ -1,6 +1,7 @@
 package ru.fintech.kotlin.utils.annotation.postprocessor
 
 import org.aopalliance.intercept.MethodInterceptor
+import org.slf4j.LoggerFactory
 import org.springframework.aop.framework.ProxyFactory
 import org.springframework.beans.factory.config.BeanPostProcessor
 import org.springframework.stereotype.Component
@@ -9,6 +10,8 @@ import kotlin.system.measureTimeMillis
 
 @Component
 class LogExecutionTimePostProcessor : BeanPostProcessor {
+    private val log = LoggerFactory.getLogger(this::class.java)
+
     override fun postProcessBeforeInitialization(bean: Any, beanName: String): Any? {
         return bean
     }
@@ -36,7 +39,7 @@ class LogExecutionTimePostProcessor : BeanPostProcessor {
             }
 
             if (isMethodLogExecutionTime || isClassAnnotated) {
-                println("Вызван метод: ${method.name} класса: ${beanClass.simpleName}, время исполнения: $timeTaken ms")
+                log.info("Вызван метод: ${method.name} класса: ${beanClass.simpleName}, время исполнения: $timeTaken ms")
             }
 
             return@MethodInterceptor result

@@ -20,7 +20,7 @@ class DataSourceCategoryInitializer : DataSourceInitializer() {
     override fun initializeData() {
         val client = HttpClient(CIO)
 
-        log.debug("Начал получать данные по категориям")
+        log.info("Начал получать данные по категориям")
         runBlocking {
             try {
                 val response = client.get("https://kudago.com/public-api/v1.4/place-categories").bodyAsText()
