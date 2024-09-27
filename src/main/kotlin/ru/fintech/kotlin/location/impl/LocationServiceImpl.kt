@@ -11,8 +11,12 @@ import ru.fintech.kotlin.location.mapper.LocationMapper
 import kotlin.random.Random
 
 @Service
-class LocationServiceImpl : LocationService {
-    private val locationRepository = CustomGenericRepository(Location::class, EntityScanner.getEntityStorage())
+class LocationServiceImpl(
+    private val locationRepository: CustomGenericRepository<Location> = CustomGenericRepository(
+        Location::class,
+        EntityScanner.getEntityStorage()
+    )
+) : LocationService {
     private val log = LoggerFactory.getLogger(this::class.java)
 
     override fun getLocations(): List<LocationDto> {

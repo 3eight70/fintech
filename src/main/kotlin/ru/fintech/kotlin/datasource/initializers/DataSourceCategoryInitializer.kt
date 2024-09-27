@@ -14,12 +14,14 @@ import ru.fintech.kotlin.utils.json.impl.CategoryJsonParser
 import kotlin.random.Random
 
 @Service
-class DataSourceCategoryInitializer : DataSourceInitializer() {
-    private val repository = CustomGenericRepository(Category::class, EntityScanner.getEntityStorage())
-
+class DataSourceCategoryInitializer(
+    private val client: HttpClient = HttpClient(CIO),
+    private val repository: CustomGenericRepository<Category> = CustomGenericRepository(
+        Category::class,
+        EntityScanner.getEntityStorage()
+    )
+) : DataSourceInitializer() {
     override fun initializeData() {
-        val client = HttpClient(CIO)
-
         log.info("Начал получать данные по категориям")
         runBlocking {
             try {

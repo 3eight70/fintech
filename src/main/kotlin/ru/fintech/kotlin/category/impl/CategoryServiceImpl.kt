@@ -12,8 +12,12 @@ import ru.fintech.kotlin.datasource.repository.impl.CustomGenericRepository
 import kotlin.random.Random
 
 @Service
-class CategoryServiceImpl : CategoryService {
-    private val categoryRepository = CustomGenericRepository(Category::class, EntityScanner.getEntityStorage())
+class CategoryServiceImpl(
+    private val categoryRepository: CustomGenericRepository<Category> = CustomGenericRepository(
+        Category::class,
+        EntityScanner.getEntityStorage()
+    )
+) : CategoryService {
     private val log = LoggerFactory.getLogger(CategoryServiceImpl::class.java)
 
     override fun getCategories(): List<CategoryDto> {

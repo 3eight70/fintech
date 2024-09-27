@@ -14,12 +14,14 @@ import ru.fintech.kotlin.utils.json.impl.LocationJsonParser
 import java.util.*
 
 @Service
-class DataSourceLocationInitializer : DataSourceInitializer() {
-    private val repository = CustomGenericRepository(Location::class, EntityScanner.getEntityStorage())
-
+class DataSourceLocationInitializer(
+    private val client: HttpClient = HttpClient(CIO),
+    private val repository: CustomGenericRepository<Location> = CustomGenericRepository(
+        Location::class,
+        EntityScanner.getEntityStorage()
+    )
+) : DataSourceInitializer() {
     override fun initializeData() {
-        val client = HttpClient(CIO)
-
         log.info("Начал получать данные по локациям")
         runBlocking {
             try {
