@@ -1,9 +1,6 @@
 package ru.fintech.kotlin
 
-import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.DisplayName
-import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.assertThrows
+import org.junit.jupiter.api.*
 import org.mockito.kotlin.*
 import org.springframework.boot.test.context.SpringBootTest
 import ru.fintech.kotlin.category.dto.RequestCategoryDto
@@ -66,40 +63,43 @@ class CategoryServiceTest {
     @Test
     @DisplayName("Должен создавать новую категорию")
     fun shouldCreateCategory() {
-        val createDto = RequestCategoryDto(name = "New Category", slug = "new-category")
-        val savedCategory = Category(id = 1, name = "New Category", slug = "new-category")
+        val createDto = RequestCategoryDto(name = "new", slug = "new")
+        val savedCategory = Category(id = 1, name = "new", slug = "new")
         whenever(categoryRepository.save(any())).thenReturn(savedCategory)
 
         val result = categoryService.createCategory(createDto)
 
         verify(categoryRepository, times(1)).save(any())
-        assert(result.name == "New Category")
-        assert(result.slug == "new-category")
+        assert(result.name == "new")
+        assert(result.slug == "new")
     }
 
     @Test
     @DisplayName("Должен обновлять существующую категорию")
     fun shouldUpdateCategory() {
-        val existingCategory = Category(id = 1, name = "Old Category", slug = "old-category")
-        val updateDto = RequestCategoryDto(name = "Updated Category", slug = "updated-category")
+        val existingCategory = Category(id = 1, name = "old", slug = "old")
+        val updateDto = RequestCategoryDto(name = "new", slug = "new")
         whenever(categoryRepository.findById(1)).thenReturn(existingCategory)
 
         val result = categoryService.updateCategory(1, updateDto)
 
         verify(categoryRepository, times(1)).findById(1)
-        assert(result.name == "Updated Category")
-        assert(result.slug == "updated-category")
+        assert(result.name == "new")
+        assert(result.slug == "new")
     }
 
     @Test
     @DisplayName("Должен выбрасывать исключение, если категория для обновления не найдена")
     fun shouldThrowExceptionWhenUpdatingNonExistentCategory() {
-        val updateDto = RequestCategoryDto(name = "Updated Category", slug = "updated-category")
+        val updateDto = RequestCategoryDto(name = "new", slug = "new")
         whenever(categoryRepository.findById(1)).thenReturn(null)
 
-        assertThrows<IllegalArgumentException> {
+        val exception = assertThrows<IllegalArgumentException> {
             categoryService.updateCategory(1, updateDto)
         }
+
+        Assertions.assertEquals(exception.message, "Категории с id: 1 не существует")
+
     }
 
     @Test

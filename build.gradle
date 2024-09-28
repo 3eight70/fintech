@@ -7,6 +7,16 @@ plugins {
     id 'jacoco'
 }
 
+sourceSets {
+    integrationTest {
+        java {
+            compileClasspath += main.output + test.output
+            runtimeClasspath += main.output + test.output
+        }
+        resources.srcDir file('src/integrationTest/resources')
+    }
+}
+
 jacoco {
     toolVersion = "0.8.11"
 }
@@ -81,7 +91,7 @@ kotlin {
     }
 }
 
-test {
+tasks.withType(Test).configureEach {
     useJUnitPlatform()
     finalizedBy jacocoTestReport
 }
@@ -89,4 +99,11 @@ test {
 configurations {
     integrationTestImplementation.extendsFrom testImplementation
     integrationTestRuntimeOnly.extendsFrom testRuntimeOnly
+}
+
+tasks.register('integrationTest', Test) {
+    description = 'Интеграционные'
+    group = 'verification'
+    testClassesDirs = sourceSets.integrationTest.output.classesDirs
+    classpath = sourceSets.integrationTest.runtimeClasspath
 }

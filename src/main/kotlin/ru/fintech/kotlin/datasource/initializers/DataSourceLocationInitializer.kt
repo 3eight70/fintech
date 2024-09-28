@@ -5,6 +5,7 @@ import io.ktor.client.engine.cio.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import kotlinx.coroutines.runBlocking
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 import ru.fintech.kotlin.datasource.DataSourceInitializer
 import ru.fintech.kotlin.datasource.EntityScanner
@@ -19,13 +20,15 @@ class DataSourceLocationInitializer(
     private val repository: CustomGenericRepository<Location> = CustomGenericRepository(
         Location::class,
         EntityScanner.getEntityStorage()
-    )
+    ),
+    @Value("\${datasource.initializer.url}")
+    private val url: String = ""
 ) : DataSourceInitializer() {
     override fun initializeData() {
         log.info("Начал получать данные по локациям")
         runBlocking {
             try {
-                val response = client.get("https://kudago.com/public-api/v1.4/locations").bodyAsText()
+                val response = client.get("$url/public-api/v1.4/locations").bodyAsText()
                 val locations = LocationJsonParser().parse(response)
 
                 for (location in locations) {

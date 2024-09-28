@@ -1,7 +1,4 @@
-import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.DisplayName
-import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.assertThrows
+import org.junit.jupiter.api.*
 import org.mockito.kotlin.*
 import ru.fintech.kotlin.datasource.repository.impl.CustomGenericRepository
 import ru.fintech.kotlin.location.dto.LocationDto
@@ -98,9 +95,11 @@ class LocationServiceTest {
         val updateDto = LocationDto(id = 123, name = "new", slug = "new")
         whenever(locationRepository.findById(1)).thenReturn(null)
 
-        assertThrows<IllegalArgumentException> {
+        val exception = assertThrows<IllegalArgumentException> {
             locationService.updateLocation(1, updateDto)
         }
+
+        Assertions.assertEquals(exception.message, "Локации с id: 1 не существует")
     }
 
     @Test

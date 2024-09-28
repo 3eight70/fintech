@@ -4,10 +4,7 @@ import io.ktor.client.*
 import io.ktor.client.engine.mock.*
 import io.ktor.http.*
 import kotlinx.coroutines.runBlocking
-import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.DisplayName
-import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.assertThrows
+import org.junit.jupiter.api.*
 import org.mockito.kotlin.*
 import org.springframework.boot.test.context.SpringBootTest
 import ru.fintech.kotlin.category.entity.Category
@@ -61,9 +58,11 @@ class DataSourceCategoryInitializerTest {
             val client = HttpClient(mockEngine)
             initializer = DataSourceCategoryInitializer(client, repository)
 
-            assertThrows<RuntimeException> {
+            val exception = assertThrows<RuntimeException> {
                 initializer.initializeData()
             }
+
+            Assertions.assertEquals(exception.message, "Что-то пошло не так")
         }
     }
 
@@ -80,9 +79,11 @@ class DataSourceCategoryInitializerTest {
         val client = HttpClient(mockEngine)
         initializer = DataSourceCategoryInitializer(client, repository)
 
-        assertThrows<RuntimeException> {
+        val exception = assertThrows<RuntimeException> {
             initializer.initializeData()
         }
+
+        Assertions.assertEquals(exception.message, "Что-то пошло не так")
     }
 
     @Test
@@ -95,9 +96,11 @@ class DataSourceCategoryInitializerTest {
             val client = HttpClient(mockEngine)
             initializer = DataSourceCategoryInitializer(client, repository)
 
-            assertThrows<RuntimeException> {
+            val exception = assertThrows<RuntimeException> {
                 initializer.initializeData()
             }
+
+            Assertions.assertEquals(exception.message, "Что-то пошло не так")
         }
     }
 
@@ -137,9 +140,11 @@ class DataSourceCategoryInitializerTest {
 
             whenever(repository.save(any<Category>())).thenThrow(RuntimeException("Save failed"))
 
-            assertThrows<RuntimeException> {
+            val exception = assertThrows<RuntimeException> {
                 initializer.initializeData()
             }
+
+            Assertions.assertEquals(exception.message, "Что-то пошло не так")
         }
     }
 }
