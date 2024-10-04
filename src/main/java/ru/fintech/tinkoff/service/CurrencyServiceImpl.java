@@ -49,21 +49,7 @@ public class CurrencyServiceImpl implements CurrencyService {
     @CircuitBreaker(name = "currencyService", fallbackMethod = "fallbackConvertCurrency")
     public ConvertCurrencyResponseDto convert(ConvertCurrencyRequestDto request) {
         log.debug("Получен запрос на конвертацию валюты: {}", request);
-        if (request.getFromCurrency() == null) {
-            throw new BadRequestException("fromCurrency не должно быть null");
-        }
 
-        if (request.getToCurrency() == null) {
-            throw new BadRequestException("toCurrency не должно быть null");
-        }
-
-        if (request.getAmount() == null) {
-            throw new BadRequestException("amount не должно быть null");
-        }
-
-        if (request.getAmount().compareTo(BigDecimal.ZERO) <= 0) {
-            throw new BadRequestException("Сумма не должна быть меньше или равна 0");
-        }
         String fromCurrencyCode = request.getFromCurrency();
         String toCurrencyCode = request.getToCurrency();
 
