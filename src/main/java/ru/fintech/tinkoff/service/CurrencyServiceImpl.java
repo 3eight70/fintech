@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
-import org.springframework.web.client.RestTemplate;
 import ru.fintech.tinkoff.dto.ConvertCurrencyRequestDto;
 import ru.fintech.tinkoff.dto.ConvertCurrencyResponseDto;
 import ru.fintech.tinkoff.dto.GetCurrencyDto;
@@ -22,6 +21,7 @@ import ru.fintech.tinkoff.exceptions.ServiceUnavailableException;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Currency;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -79,7 +79,7 @@ public class CurrencyServiceImpl implements CurrencyService {
 
     public void fallbackConvertCurrency(ConvertCurrencyRequestDto dto, Throwable throwable) {
         log.error("Сработал fallback на метод convert", throwable);
-        throw new ServiceUnavailableException("Что-то пошло не так");
+        throw new ServiceUnavailableException("В данный момент сервис не доступен, попробуйте позже");
     }
 
     @Override
@@ -87,7 +87,7 @@ public class CurrencyServiceImpl implements CurrencyService {
     @Cacheable(value = "currencyRates", key = "#code", unless = "#result == null")
     public GetCurrencyDto get(String code) {
         log.info("Получен запрос на получение валюты с кодом: {}", code);
-        if (!charCodeSet.contains(code)) {
+        if (!charCodeSet.contains(code) || isInvalidCurrency(code)) {
             throw new BadRequestException("Валюты с указанным кодом не существует:" + code);
         }
 
@@ -98,7 +98,7 @@ public class CurrencyServiceImpl implements CurrencyService {
 
     public void fallbackGetCurrency(String code, Throwable throwable) {
         log.error("Сработал fallback на метод get", throwable);
-        throw new ServiceUnavailableException("Что-то пошло не так");
+        throw new ServiceUnavailableException("В данный момент сервис не доступен, попробуйте позже");
     }
 
     private String fetchCurrencyData(String url) {
@@ -138,6 +138,15 @@ public class CurrencyServiceImpl implements CurrencyService {
             }
         }
         throw new NotFoundException("Валюта не найдена");
+    }
+
+    private boolean isInvalidCurrency(String code) {
+        try {
+            Currency.getInstance(code);
+            return false;
+        } catch (IllegalArgumentException e) {
+            return true;
+        }
     }
 
     private Set<String> getValuteCodes(String url) {
