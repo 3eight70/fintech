@@ -11,30 +11,29 @@ import ru.fintech.kotlin.utils.annotation.LogExecutionTime
 @RequestMapping("/api/v1/places/categories")
 class CategoryController(private val categoryService: CategoryService) {
     @GetMapping("/{id}")
-    fun getCategory(@PathVariable("id") categoryId: Long): CategoryDto? {
-        return categoryService.getCategoryById(categoryId)
-    }
+    fun getCategory(@PathVariable("id") categoryId: Long): CategoryDto? =
+        categoryService.getCategoryById(categoryId)
+
 
     @GetMapping
-    fun getCategories(): List<CategoryDto> {
-        return categoryService.getCategories()
-    }
+    fun getCategories(): List<CategoryDto> =
+        categoryService.getCategories()
+
 
     @PostMapping
-    fun createCategory(@RequestBody categoryDto: RequestCategoryDto): CategoryDto {
-        return categoryService.createCategory(categoryDto)
-    }
+    fun createCategory(@RequestBody categoryDto: RequestCategoryDto): CategoryDto =
+        categoryService.createCategory(categoryDto)
+
 
     @PutMapping("/{id}")
     fun updateCategory(
         @PathVariable("id") categoryId: Long,
         @RequestBody categoryDto: RequestCategoryDto
-    ): CategoryDto {
-        return categoryService.updateCategory(categoryId, categoryDto)
-    }
+    ): CategoryDto =
+        categoryService.updateCategory(categoryId, categoryDto)
+
 
     @DeleteMapping("/{id}")
-    fun deleteCategory(@PathVariable("id") categoryId: Long) {
-        return categoryService.deleteCategory(categoryId)
-    }
+    fun deleteCategory(@PathVariable("id") categoryId: Long) =
+        categoryService.deleteCategory(categoryId)
 }
