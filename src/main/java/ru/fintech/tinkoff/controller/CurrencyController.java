@@ -34,7 +34,7 @@ public class CurrencyController {
             @ApiResponse(responseCode = "503", description = "ЦБ недоступен")
     })
     public ResponseEntity<GetCurrencyDto> getCurrency(
-            @PathVariable("code") @Parameter(description = "Код валюты") String code
+            @PathVariable("code") @Parameter(description = "Код валюты", example = "USD") String code
     ) {
         return ResponseEntity.ok(currencyService.get(code));
     }

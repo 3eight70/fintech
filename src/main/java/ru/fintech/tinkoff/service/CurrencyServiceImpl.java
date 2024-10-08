@@ -49,6 +49,17 @@ public class CurrencyServiceImpl implements CurrencyService {
     @CircuitBreaker(name = "currencyService", fallbackMethod = "fallbackConvertCurrency")
     public ConvertCurrencyResponseDto convert(ConvertCurrencyRequestDto request) {
         log.debug("Получен запрос на конвертацию валюты: {}", request);
+        if (request.getFromCurrency() == null){
+            throw new BadRequestException("Конвертируемая валюта должна быть указана");
+        }
+
+        if (request.getToCurrency() == null){
+            throw new BadRequestException("Валюта, в которую конвертируем должна быть указана");
+        }
+
+        if (request.getAmount() == null){
+            throw new BadRequestException("Сумма конвертируемой валюты должна быть указана");
+        }
 
         String fromCurrencyCode = request.getFromCurrency();
         String toCurrencyCode = request.getToCurrency();
@@ -61,7 +72,7 @@ public class CurrencyServiceImpl implements CurrencyService {
         GetCurrencyDto toCurrency = get(toCurrencyCode);
         BigDecimal convertedAmount = request.getAmount()
                 .multiply(fromCurrency.getRate())
-                .divide(toCurrency.getRate(), RoundingMode.UNNECESSARY);
+                .divide(toCurrency.getRate(), 4, RoundingMode.HALF_UP);
 
         ConvertCurrencyResponseDto response = new ConvertCurrencyResponseDto();
         response.setFromCurrency(request.getFromCurrency());

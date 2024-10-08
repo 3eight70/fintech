@@ -12,9 +12,9 @@ import java.time.Instant;
 @NoArgsConstructor
 @Schema(description = "dto для возвращения сообщений с исключениями")
 public class ExceptionResponse {
-    @Schema(description = "Статус ответа")
+    @Schema(description = "Статус ответа", example = "500")
     private int code;
-    @Schema(description = "Сообщение")
+    @Schema(description = "Сообщение", example = "Что-то пошло не так")
     private String message;
     @Schema(description = "Время возникновения")
     private Instant timestamp;

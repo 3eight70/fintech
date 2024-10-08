@@ -12,10 +12,10 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @Schema(description = "dto для ответов на запросы на преобразование валюты")
 public class ConvertCurrencyResponseDto {
-    @Schema(description = "Изначальная валюта")
+    @Schema(description = "Изначальная валюта", example = "RUB")
     private String fromCurrency;
-    @Schema(description = "Валюта, в которую конвертируем")
+    @Schema(description = "Валюта, в которую конвертируем", example = "USD")
     private String toCurrency;
-    @Schema(description = "Сумма в конвертированной валюте")
+    @Schema(description = "Сумма в конвертированной валюте", example = "1")
     private BigDecimal convertedAmount;
 }

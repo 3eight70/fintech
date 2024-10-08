@@ -15,15 +15,15 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @Schema(description = "dto для запросов на конвертацию валюты")
 public class ConvertCurrencyRequestDto {
-    @Schema(description = "Изначальная валюта")
+    @Schema(description = "Изначальная валюта", example = "RUB")
     @NotNull(message = "Изначальная валюта должна быть заполнена")
     @NotBlank(message = "Изначальная валюта должна быть заполнена")
     private String fromCurrency;
-    @Schema(description = "Валюта, в которую конвертируем")
+    @Schema(description = "Валюта, в которую конвертируем", example = "USD")
     @NotNull(message = "Конвертируемая валюта должна быть заполнена")
     @NotBlank(message = "Конвертируемая валюта должна быть заполнена")
     private String toCurrency;
-    @Schema(description = "Сумма в изначальной валюте")
+    @Schema(description = "Сумма в изначальной валюте", example = "100")
     @NotNull(message = "Сумма должна быть заполнена")
     @DecimalMin(value = "0", message = "Сумма не должна быть меньше или равна 0")
     private BigDecimal amount;
