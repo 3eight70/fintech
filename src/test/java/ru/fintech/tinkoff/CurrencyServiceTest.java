@@ -86,6 +86,12 @@ public class CurrencyServiceTest {
     }
 
     @Test
+    @DisplayName("Должен выкидывать BadRequest, когда код валюты невалиден")
+    public void shouldThrowBadRequestExceptionWhenCurrencyCodeIsInvalid() {
+        Assertions.assertThrows(BadRequestException.class, () -> currencyService.get("INVALID"));
+    }
+
+    @Test
     @DisplayName("Должен выкидывать ServiceUnavailable, когда ЦБ недоступен")
     public void shouldThrowServiceUnavailableExceptionWhenBankIsUnavailable() throws IOException {
         mockWebServer.close();
