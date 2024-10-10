@@ -1,0 +1,25 @@
+currency:
+  api:
+    url: "https://www.cbr.ru/scripts/XML_daily.asp"
+    valute:
+      url: "https://cbr.ru/scripts/XML_valFull.asp"
+
+springdoc:
+  api-docs:
+    path: /api-docs
+
+spring:
+  cache:
+    cache-names: currencyRates
+    caffeine:
+      spec: expireAfterWrite=1h
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      default:
+        registerHealthIndicator: true
+        slidingWindowSize: 10
+        failureRateThreshold: 50
+        waitDurationInOpenState: 10000
+        permittedNumberOfCallsInHalfOpenState: 3
