@@ -11,11 +11,18 @@ import ru.fintech.kotlin.category.entity.Category
 import ru.fintech.kotlin.datasource.initializers.DataSourceCategoryInitializer
 import ru.fintech.kotlin.datasource.repository.impl.CustomGenericRepository
 import java.net.ConnectException
+import java.util.concurrent.Executors
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class DataSourceCategoryInitializerTest {
     private lateinit var initializer: DataSourceCategoryInitializer
     private lateinit var repository: CustomGenericRepository<Category>
+    private val fixedThreadPool = Executors.newFixedThreadPool(5).apply {
+        Thread.currentThread().name = "LocationFixedThreadPool"
+    }
+    private val fixedScheduledPool = Executors.newScheduledThreadPool(2).apply {
+        Thread.currentThread().name = "ScheduledThreadPool"
+    }
 
     @BeforeEach
     fun setup() {
@@ -35,7 +42,13 @@ class DataSourceCategoryInitializerTest {
             }
             val client = HttpClient(mockEngine)
 
-            initializer = DataSourceCategoryInitializer(client, repository)
+            initializer = DataSourceCategoryInitializer(
+                client,
+                repository,
+                "http://MOCKasdasdasd.ru",
+                fixedThreadPool,
+                fixedScheduledPool
+            )
 
             initializer.initializeData()
 
@@ -56,7 +69,13 @@ class DataSourceCategoryInitializerTest {
                 )
             }
             val client = HttpClient(mockEngine)
-            initializer = DataSourceCategoryInitializer(client, repository)
+            initializer = DataSourceCategoryInitializer(
+                client,
+                repository,
+                "http://MOCKasdasdasd.ru",
+                fixedThreadPool,
+                fixedScheduledPool
+            )
 
             val exception = assertThrows<RuntimeException> {
                 initializer.initializeData()
@@ -71,13 +90,19 @@ class DataSourceCategoryInitializerTest {
     fun shouldHandleParsingErrorWhenClientReturnInvalidJson() {
         val mockEngine = MockEngine { _ ->
             respond(
-                content = "bla bla bla",
+                content = "[bla bla bla]",
                 status = HttpStatusCode.OK,
                 headers = headersOf(HttpHeaders.ContentType, "application/json")
             )
         }
         val client = HttpClient(mockEngine)
-        initializer = DataSourceCategoryInitializer(client, repository)
+        initializer = DataSourceCategoryInitializer(
+            client,
+            repository,
+            "http://MOCKasdasdasd.ru",
+            fixedThreadPool,
+            fixedScheduledPool
+        )
 
         val exception = assertThrows<RuntimeException> {
             initializer.initializeData()
@@ -94,7 +119,13 @@ class DataSourceCategoryInitializerTest {
                 throw ConnectException()
             }
             val client = HttpClient(mockEngine)
-            initializer = DataSourceCategoryInitializer(client, repository)
+            initializer = DataSourceCategoryInitializer(
+                client,
+                repository,
+                "http://MOCKasdasdasd.ru",
+                fixedThreadPool,
+                fixedScheduledPool
+            )
 
             val exception = assertThrows<RuntimeException> {
                 initializer.initializeData()
@@ -116,7 +147,13 @@ class DataSourceCategoryInitializerTest {
                 )
             }
             val client = HttpClient(mockEngine)
-            initializer = DataSourceCategoryInitializer(client, repository)
+            initializer = DataSourceCategoryInitializer(
+                client,
+                repository,
+                "http://MOCKasdasdasd.ru",
+                fixedThreadPool,
+                fixedScheduledPool
+            )
 
             initializer.initializeData()
 
@@ -136,9 +173,15 @@ class DataSourceCategoryInitializerTest {
                 )
             }
             val client = HttpClient(mockEngine)
-            initializer = DataSourceCategoryInitializer(client, repository)
+            initializer = DataSourceCategoryInitializer(
+                client,
+                repository,
+                "http://MOCKasdasdasd.ru",
+                fixedThreadPool,
+                fixedScheduledPool
+            )
 
-            whenever(repository.save(any<Category>())).thenThrow(RuntimeException("Save failed"))
+            whenever(repository.save(any<Category>())).thenThrow(RuntimeException("Что-то пошло не так"))
 
             val exception = assertThrows<RuntimeException> {
                 initializer.initializeData()

@@ -8,6 +8,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.support.WebExchangeBindException;
 import ru.fintech.tinkoff.dto.ExceptionResponse;
 
 import java.time.Instant;
@@ -18,6 +19,18 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<ExceptionResponse> handleValidationException(MethodArgumentNotValidException e) {
+        FieldError fieldError = e.getBindingResult().getFieldError();
+        String errorMessage = fieldError != null ? fieldError.getDefaultMessage() : "Ошибка валидации";
+
+        int status = HttpStatus.BAD_REQUEST.value();
+        log.error(e.getMessage(), e);
+
+        return new ResponseEntity<>(new ExceptionResponse(status, errorMessage, Instant.now()), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(WebExchangeBindException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<ExceptionResponse> handleValidationException(WebExchangeBindException e) {
         FieldError fieldError = e.getBindingResult().getFieldError();
         String errorMessage = fieldError != null ? fieldError.getDefaultMessage() : "Ошибка валидации";
 

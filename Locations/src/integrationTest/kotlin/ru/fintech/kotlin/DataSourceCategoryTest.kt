@@ -2,6 +2,8 @@ package ru.fintech.kotlin
 
 import com.github.tomakehurst.wiremock.client.WireMock.*
 import org.junit.jupiter.api.*
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.beans.factory.annotation.Qualifier
 import org.testcontainers.containers.GenericContainer
 import org.testcontainers.containers.wait.strategy.Wait
 import org.testcontainers.utility.DockerImageName
@@ -10,6 +12,9 @@ import ru.fintech.kotlin.datasource.DataSource
 import ru.fintech.kotlin.datasource.initializers.DataSourceCategoryInitializer
 import ru.fintech.kotlin.datasource.repository.impl.CustomGenericRepository
 import java.time.Duration
+import java.util.concurrent.ExecutorService
+import java.util.concurrent.Executors
+import java.util.concurrent.ScheduledExecutorService
 
 class DataSourceCategoryTest {
     private val wireMockContainer = GenericContainer(DockerImageName.parse("wiremock/wiremock:2.35.1-1"))
@@ -19,6 +24,12 @@ class DataSourceCategoryTest {
     private lateinit var dataSource: DataSource
     private lateinit var initializer: DataSourceCategoryInitializer
     private lateinit var repository: CustomGenericRepository<Category>
+    private val fixedThreadPool = Executors.newFixedThreadPool(5).apply {
+        Thread.currentThread().name = "LocationFixedThreadPool"
+    }
+    private val fixedScheduledPool = Executors.newScheduledThreadPool(2).apply {
+        Thread.currentThread().name = "ScheduledThreadPool"
+    }
 
     @BeforeEach
     fun setup() {
@@ -29,7 +40,12 @@ class DataSourceCategoryTest {
         dataSource = DataSource()
         dataSource.createTable("categories")
         repository = CustomGenericRepository(Category::class, dataSource)
-        initializer = DataSourceCategoryInitializer(repository = repository, url = "http://$wireMockHost:$wireMockPort")
+        initializer = DataSourceCategoryInitializer(
+            repository = repository,
+            url = "http://$wireMockHost:$wireMockPort",
+            fixedThreadPool = fixedThreadPool,
+            scheduledThreadPool = fixedScheduledPool
+        )
     }
 
     @AfterEach
