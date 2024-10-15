@@ -1,26 +1,43 @@
 package ru.fintech.kotlin
 
-import io.ktor.client.*
-import io.ktor.client.engine.mock.*
-import io.ktor.http.*
+import io.ktor.client.HttpClient
+import io.ktor.client.engine.mock.MockEngine
+import io.ktor.client.engine.mock.respond
+import io.ktor.http.HttpHeaders
+import io.ktor.http.HttpStatusCode
+import io.ktor.http.headersOf
 import kotlinx.coroutines.runBlocking
-import org.junit.jupiter.api.*
-import org.mockito.kotlin.*
+import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.DisplayName
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
+import org.mockito.kotlin.any
+import org.mockito.kotlin.mock
+import org.mockito.kotlin.never
+import org.mockito.kotlin.times
+import org.mockito.kotlin.verify
+import org.mockito.kotlin.whenever
 import org.springframework.boot.test.context.SpringBootTest
 import ru.fintech.kotlin.category.entity.Category
+import ru.fintech.kotlin.config.ExecutorsProperties
 import ru.fintech.kotlin.datasource.initializers.DataSourceCategoryInitializer
 import ru.fintech.kotlin.datasource.repository.impl.CustomGenericRepository
 import java.net.ConnectException
+import java.time.Duration
 import java.util.concurrent.Executors
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class DataSourceCategoryInitializerTest {
     private lateinit var initializer: DataSourceCategoryInitializer
     private lateinit var repository: CustomGenericRepository<Category>
-    private val fixedThreadPool = Executors.newFixedThreadPool(5).apply {
+    private val properties = ExecutorsProperties(
+        duration = Duration.ofMinutes(1000)
+    )
+    private val fixedThreadPool = Executors.newFixedThreadPool(properties.fixedPoolSize).apply {
         Thread.currentThread().name = "LocationFixedThreadPool"
     }
-    private val fixedScheduledPool = Executors.newScheduledThreadPool(2).apply {
+    private val fixedScheduledPool = Executors.newScheduledThreadPool(properties.scheduledPoolSize).apply {
         Thread.currentThread().name = "ScheduledThreadPool"
     }
 
@@ -47,7 +64,8 @@ class DataSourceCategoryInitializerTest {
                 repository,
                 "http://MOCKasdasdasd.ru",
                 fixedThreadPool,
-                fixedScheduledPool
+                fixedScheduledPool,
+                properties
             )
 
             initializer.initializeData()
@@ -74,7 +92,8 @@ class DataSourceCategoryInitializerTest {
                 repository,
                 "http://MOCKasdasdasd.ru",
                 fixedThreadPool,
-                fixedScheduledPool
+                fixedScheduledPool,
+                properties
             )
 
             val exception = assertThrows<RuntimeException> {
@@ -101,7 +120,8 @@ class DataSourceCategoryInitializerTest {
             repository,
             "http://MOCKasdasdasd.ru",
             fixedThreadPool,
-            fixedScheduledPool
+            fixedScheduledPool,
+            properties
         )
 
         val exception = assertThrows<RuntimeException> {
@@ -124,7 +144,8 @@ class DataSourceCategoryInitializerTest {
                 repository,
                 "http://MOCKasdasdasd.ru",
                 fixedThreadPool,
-                fixedScheduledPool
+                fixedScheduledPool,
+                properties
             )
 
             val exception = assertThrows<RuntimeException> {
@@ -152,7 +173,8 @@ class DataSourceCategoryInitializerTest {
                 repository,
                 "http://MOCKasdasdasd.ru",
                 fixedThreadPool,
-                fixedScheduledPool
+                fixedScheduledPool,
+                properties
             )
 
             initializer.initializeData()
@@ -178,7 +200,8 @@ class DataSourceCategoryInitializerTest {
                 repository,
                 "http://MOCKasdasdasd.ru",
                 fixedThreadPool,
-                fixedScheduledPool
+                fixedScheduledPool,
+                properties
             )
 
             whenever(repository.save(any<Category>())).thenThrow(RuntimeException("Что-то пошло не так"))

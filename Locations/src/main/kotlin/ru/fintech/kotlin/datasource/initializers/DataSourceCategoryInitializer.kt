@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.context.event.ApplicationReadyEvent
 import org.springframework.stereotype.Service
 import ru.fintech.kotlin.category.entity.Category
+import ru.fintech.kotlin.config.ExecutorsProperties
 import ru.fintech.kotlin.datasource.DataSourceInitializer
 import ru.fintech.kotlin.datasource.EntityScanner
 import ru.fintech.kotlin.datasource.repository.impl.CustomGenericRepository
@@ -34,7 +35,8 @@ class DataSourceCategoryInitializer(
     @Qualifier("categoryFixedThreadPool")
     private val fixedThreadPool: ExecutorService,
     @Qualifier("scheduledThreadPool")
-    private val scheduledThreadPool: ScheduledExecutorService
+    private val scheduledThreadPool: ScheduledExecutorService,
+    private val properties: ExecutorsProperties
 ) : DataSourceInitializer() {
     override fun initializeData() {
         val startTime = Instant.now()
@@ -87,7 +89,11 @@ class DataSourceCategoryInitializer(
     }
 
     override fun onApplicationEvent(event: ApplicationReadyEvent) {
-        val duration = Duration.ofMinutes(1200)
-        scheduledThreadPool.scheduleAtFixedRate({ initializeData() }, 0, duration.toMillis(), TimeUnit.MILLISECONDS)
+        scheduledThreadPool.scheduleAtFixedRate(
+            { initializeData() },
+            0,
+            properties.duration.toMillis(),
+            TimeUnit.MILLISECONDS
+        )
     }
 }

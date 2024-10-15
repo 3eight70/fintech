@@ -1,20 +1,25 @@
 package ru.fintech.kotlin
 
-import com.github.tomakehurst.wiremock.client.WireMock.*
-import org.junit.jupiter.api.*
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.beans.factory.annotation.Qualifier
+import com.github.tomakehurst.wiremock.client.WireMock.configureFor
+import com.github.tomakehurst.wiremock.client.WireMock.get
+import com.github.tomakehurst.wiremock.client.WireMock.okJson
+import com.github.tomakehurst.wiremock.client.WireMock.stubFor
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.DisplayName
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 import org.testcontainers.containers.GenericContainer
 import org.testcontainers.containers.wait.strategy.Wait
 import org.testcontainers.utility.DockerImageName
 import ru.fintech.kotlin.category.entity.Category
+import ru.fintech.kotlin.config.ExecutorsProperties
 import ru.fintech.kotlin.datasource.DataSource
 import ru.fintech.kotlin.datasource.initializers.DataSourceCategoryInitializer
 import ru.fintech.kotlin.datasource.repository.impl.CustomGenericRepository
 import java.time.Duration
-import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
-import java.util.concurrent.ScheduledExecutorService
 
 class DataSourceCategoryTest {
     private val wireMockContainer = GenericContainer(DockerImageName.parse("wiremock/wiremock:2.35.1-1"))
@@ -24,10 +29,13 @@ class DataSourceCategoryTest {
     private lateinit var dataSource: DataSource
     private lateinit var initializer: DataSourceCategoryInitializer
     private lateinit var repository: CustomGenericRepository<Category>
-    private val fixedThreadPool = Executors.newFixedThreadPool(5).apply {
+    private val properties = ExecutorsProperties(
+        duration = Duration.ofMinutes(1000)
+    )
+    private val fixedThreadPool = Executors.newFixedThreadPool(properties.fixedPoolSize).apply {
         Thread.currentThread().name = "LocationFixedThreadPool"
     }
-    private val fixedScheduledPool = Executors.newScheduledThreadPool(2).apply {
+    private val fixedScheduledPool = Executors.newScheduledThreadPool(properties.scheduledPoolSize).apply {
         Thread.currentThread().name = "ScheduledThreadPool"
     }
 
@@ -44,7 +52,8 @@ class DataSourceCategoryTest {
             repository = repository,
             url = "http://$wireMockHost:$wireMockPort",
             fixedThreadPool = fixedThreadPool,
-            scheduledThreadPool = fixedScheduledPool
+            scheduledThreadPool = fixedScheduledPool,
+            properties = properties
         )
     }
 

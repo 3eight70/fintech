@@ -1,7 +1,15 @@
 package ru.fintech.kotlin
 
-import org.junit.jupiter.api.*
-import org.mockito.kotlin.*
+import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.DisplayName
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
+import org.mockito.kotlin.any
+import org.mockito.kotlin.mock
+import org.mockito.kotlin.times
+import org.mockito.kotlin.verify
+import org.mockito.kotlin.whenever
 import org.springframework.boot.test.context.SpringBootTest
 import ru.fintech.kotlin.category.dto.RequestCategoryDto
 import ru.fintech.kotlin.category.entity.Category

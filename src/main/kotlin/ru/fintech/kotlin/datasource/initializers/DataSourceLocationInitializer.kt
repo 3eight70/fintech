@@ -1,21 +1,17 @@
 package ru.fintech.kotlin.datasource.initializers
 
-import io.ktor.client.*
-import io.ktor.client.engine.cio.*
-import io.ktor.client.request.*
-import io.ktor.client.statement.*
+import io.ktor.client.HttpClient
+import io.ktor.client.engine.cio.CIO
+import io.ktor.client.request.get
+import io.ktor.client.statement.bodyAsText
 import kotlinx.coroutines.runBlocking
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.context.event.ApplicationReadyEvent
-import org.springframework.boot.context.event.ApplicationStartedEvent
-import org.springframework.context.ApplicationListener
 import org.springframework.stereotype.Service
-import ru.fintech.kotlin.category.entity.Category
 import ru.fintech.kotlin.datasource.DataSourceInitializer
 import ru.fintech.kotlin.datasource.EntityScanner
 import ru.fintech.kotlin.datasource.repository.impl.CustomGenericRepository
-import ru.fintech.kotlin.location.dto.LocationDto
 import ru.fintech.kotlin.location.dto.LocationSerializableDto
 import ru.fintech.kotlin.location.entity.Location
 import ru.fintech.kotlin.utils.json.impl.LocationJsonParser

@@ -1,8 +1,14 @@
 package ru.fintech.tinkoff;
 
+import java.io.IOException;
+import java.math.BigDecimal;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,9 +22,6 @@ import ru.fintech.tinkoff.exceptions.BadRequestException;
 import ru.fintech.tinkoff.exceptions.NotFoundException;
 import ru.fintech.tinkoff.exceptions.ServiceUnavailableException;
 import ru.fintech.tinkoff.service.CurrencyService;
-
-import java.io.IOException;
-import java.math.BigDecimal;
 
 //Валидация данных, приходящих в контроллерах проходит в сервисе
 @ExtendWith(SpringExtension.class)

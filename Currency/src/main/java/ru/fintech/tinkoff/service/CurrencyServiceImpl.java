@@ -2,6 +2,11 @@ package ru.fintech.tinkoff.service;
 
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.Currency;
+import java.util.HashSet;
+import java.util.Set;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,12 +23,6 @@ import ru.fintech.tinkoff.dto.xml.Valute;
 import ru.fintech.tinkoff.exceptions.BadRequestException;
 import ru.fintech.tinkoff.exceptions.NotFoundException;
 import ru.fintech.tinkoff.exceptions.ServiceUnavailableException;
-
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.util.Currency;
-import java.util.HashSet;
-import java.util.Set;
 
 @Service
 @Slf4j
