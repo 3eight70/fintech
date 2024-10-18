@@ -1,0 +1,66 @@
+package ru.tinkoff.fintech.common;
+
+import java.time.Instant;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MissingServletRequestParameterException;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import ru.tinkoff.fintech.common.dto.Response;
+import ru.tinkoff.fintech.common.exception.BadRequestException;
+import ru.tinkoff.fintech.common.exception.NotFoundException;
+
+@ControllerAdvice
+@Slf4j
+public class GlobalExceptionHandler {
+    @ExceptionHandler(MissingServletRequestParameterException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<Response> handleMissingServletRequestParameterException(MissingServletRequestParameterException e) {
+        log.error(e.getMessage(), e);
+        return new ResponseEntity<>(
+                new Response(
+                        HttpStatus.BAD_REQUEST.value(),
+                        "Отсутствует необходимый параметр запроса " + e.getParameterName(),
+                        Instant.now()
+                ),
+                HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(BadRequestException.class)
+    public ResponseEntity<Response> handleBadRequestException(BadRequestException e) {
+        log.error(e.getMessage(), e);
+        return new ResponseEntity<>(
+                new Response(
+                        HttpStatus.BAD_REQUEST.value(),
+                        e.getMessage(),
+                        Instant.now()
+                ),
+                HttpStatus.BAD_REQUEST
+        );
+    }
+
+    @ExceptionHandler(NotFoundException.class)
+    public ResponseEntity<Response> handleNotFoundException(NotFoundException e) {
+        log.error(e.getMessage(), e);
+        return new ResponseEntity<>(
+                new Response(
+                        HttpStatus.NOT_FOUND.value(),
+                        e.getMessage(),
+                        Instant.now()
+                ),
+                HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<Response> handleException(Exception e) {
+        log.error(e.getMessage(), e);
+        Response response = new Response(
+                HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                "Что-то пошло не так",
+                Instant.now()
+        );
+        return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+}
