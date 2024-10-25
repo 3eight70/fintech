@@ -10,6 +10,8 @@ import ru.fintech.kotlin.category.entity.CategorySnapshot
 import ru.fintech.kotlin.category.mapper.CategoryMapper
 import ru.fintech.kotlin.datasource.EntityScanner
 import ru.fintech.kotlin.datasource.SnapshotScanner
+import ru.fintech.kotlin.datasource.observer.GenericObserver
+import ru.fintech.kotlin.datasource.observer.Subject
 import ru.fintech.kotlin.datasource.repository.impl.CustomGenericRepository
 import ru.fintech.kotlin.datasource.repository.impl.CustomSnapshotRepository
 import kotlin.random.Random
@@ -26,6 +28,12 @@ class CategoryServiceImpl(
     )
 ) : CategoryService {
     private val log = LoggerFactory.getLogger(CategoryServiceImpl::class.java)
+    private val subject = Subject<Category>()
+    private val observer = GenericObserver(categoryRepository)
+
+    init {
+        subject.attach(observer)
+    }
 
     override fun getCategories(): List<CategoryDto> {
         log.info("Получен запрос на получение категорий")
@@ -53,8 +61,9 @@ class CategoryServiceImpl(
             slug = createDto.slug
         )
         categorySnapshotRepository.save(CategorySnapshot(category))
+        subject.notifyObservers(category)
 
-        return CategoryMapper.entityToDto(categoryRepository.save(category))
+        return CategoryMapper.entityToDto(category)
     }
 
     override fun updateCategory(id: Long, updateDto: RequestCategoryDto): CategoryDto {

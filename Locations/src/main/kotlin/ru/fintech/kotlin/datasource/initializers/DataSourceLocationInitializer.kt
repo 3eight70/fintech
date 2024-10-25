@@ -19,7 +19,7 @@ import java.util.*
 @Service
 class DataSourceLocationInitializer(
     private val client: HttpClient = HttpClient(CIO),
-    private val repository: CustomGenericRepository<Location> = CustomGenericRepository(
+    repository: CustomGenericRepository<Location> = CustomGenericRepository(
         Location::class,
         EntityScanner.getEntityStorage()
     )

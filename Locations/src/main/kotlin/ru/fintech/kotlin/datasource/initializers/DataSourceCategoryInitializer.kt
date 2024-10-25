@@ -18,7 +18,7 @@ import kotlin.random.Random
 @Service
 class DataSourceCategoryInitializer(
     private val client: HttpClient = HttpClient(CIO),
-    private val repository: CustomGenericRepository<Category> = CustomGenericRepository(
+    repository: CustomGenericRepository<Category> = CustomGenericRepository(
         Category::class,
         EntityScanner.getEntityStorage()
     )

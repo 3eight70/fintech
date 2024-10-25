@@ -4,6 +4,8 @@ import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 import ru.fintech.kotlin.datasource.EntityScanner
 import ru.fintech.kotlin.datasource.SnapshotScanner
+import ru.fintech.kotlin.datasource.observer.GenericObserver
+import ru.fintech.kotlin.datasource.observer.Subject
 import ru.fintech.kotlin.datasource.repository.impl.CustomGenericRepository
 import ru.fintech.kotlin.datasource.repository.impl.CustomSnapshotRepository
 import ru.fintech.kotlin.location.LocationService
@@ -25,6 +27,12 @@ class LocationServiceImpl(
     )
 ) : LocationService {
     private val log = LoggerFactory.getLogger(this::class.java)
+    private val subject = Subject<Location>()
+    private val observer = GenericObserver(locationRepository)
+
+    init {
+        subject.attach(observer)
+    }
 
     override fun getLocations(): List<LocationDto> {
         log.info("Получен запрос на получение списка локаций")
@@ -52,8 +60,9 @@ class LocationServiceImpl(
             slug = locationDto.slug
         )
         locationSnapshotRepository.save(LocationSnapshot(location))
+        subject.notifyObservers(location)
 
-        return LocationMapper.entityToDto(locationRepository.save(location))
+        return LocationMapper.entityToDto(location)
     }
 
     override fun updateLocation(id: Long, locationDto: LocationDto): LocationDto {
