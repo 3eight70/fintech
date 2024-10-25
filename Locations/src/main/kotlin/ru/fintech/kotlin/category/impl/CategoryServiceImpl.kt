@@ -6,9 +6,12 @@ import ru.fintech.kotlin.category.CategoryService
 import ru.fintech.kotlin.category.dto.CategoryDto
 import ru.fintech.kotlin.category.dto.RequestCategoryDto
 import ru.fintech.kotlin.category.entity.Category
+import ru.fintech.kotlin.category.entity.CategorySnapshot
 import ru.fintech.kotlin.category.mapper.CategoryMapper
 import ru.fintech.kotlin.datasource.EntityScanner
+import ru.fintech.kotlin.datasource.SnapshotScanner
 import ru.fintech.kotlin.datasource.repository.impl.CustomGenericRepository
+import ru.fintech.kotlin.datasource.repository.impl.CustomSnapshotRepository
 import kotlin.random.Random
 
 @Service
@@ -16,6 +19,10 @@ class CategoryServiceImpl(
     private val categoryRepository: CustomGenericRepository<Category> = CustomGenericRepository(
         Category::class,
         EntityScanner.getEntityStorage()
+    ),
+    private val categorySnapshotRepository: CustomSnapshotRepository<CategorySnapshot> = CustomSnapshotRepository(
+        CategorySnapshot::class,
+        SnapshotScanner.getEntityStorage()
     )
 ) : CategoryService {
     private val log = LoggerFactory.getLogger(CategoryServiceImpl::class.java)
@@ -45,6 +52,7 @@ class CategoryServiceImpl(
             name = createDto.name,
             slug = createDto.slug
         )
+        categorySnapshotRepository.save(CategorySnapshot(category))
 
         return CategoryMapper.entityToDto(categoryRepository.save(category))
     }
@@ -56,6 +64,7 @@ class CategoryServiceImpl(
 
         category.name = updateDto.name
         category.slug = updateDto.slug
+        categorySnapshotRepository.save(CategorySnapshot(category))
 
         return CategoryMapper.entityToDto(category)
     }

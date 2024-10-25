@@ -1,27 +1,27 @@
 package ru.fintech.kotlin.datasource
 
 import org.reflections.Reflections
-import ru.fintech.kotlin.utils.annotation.CustomEntity
+import ru.fintech.kotlin.utils.annotation.SnapshotEntity
 import kotlin.reflect.full.findAnnotation
 import kotlin.reflect.full.hasAnnotation
 
-object EntityScanner : Scanner {
-    private val entityStorage = DataSource()
+object SnapshotScanner : Scanner{
+    private val entityStorage = SnapshotDataSource()
 
     override fun initialize(packageName: String) {
         val reflections = Reflections(packageName)
-        val classes = reflections.getTypesAnnotatedWith(CustomEntity::class.java)
+        val classes = reflections.getTypesAnnotatedWith(SnapshotEntity::class.java)
 
         for (c in classes) {
             val kClass = c.kotlin
-            if (kClass.hasAnnotation<CustomEntity>()) {
-                val annotation = kClass.findAnnotation<CustomEntity>()!!
+            if (kClass.hasAnnotation<SnapshotEntity>()) {
+                val annotation = kClass.findAnnotation<SnapshotEntity>()!!
                 entityStorage.createTable(annotation.tableName)
             }
         }
     }
 
-    fun getEntityStorage(): DataSource {
+    fun getEntityStorage(): SnapshotDataSource {
         return entityStorage
     }
 }

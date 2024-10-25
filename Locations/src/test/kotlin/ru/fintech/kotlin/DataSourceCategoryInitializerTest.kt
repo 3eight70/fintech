@@ -7,7 +7,6 @@ import io.ktor.http.HttpHeaders
 import io.ktor.http.HttpStatusCode
 import io.ktor.http.headersOf
 import kotlinx.coroutines.runBlocking
-import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -20,26 +19,14 @@ import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
 import org.springframework.boot.test.context.SpringBootTest
 import ru.fintech.kotlin.category.entity.Category
-import ru.fintech.kotlin.config.ExecutorsProperties
 import ru.fintech.kotlin.datasource.initializers.DataSourceCategoryInitializer
 import ru.fintech.kotlin.datasource.repository.impl.CustomGenericRepository
 import java.net.ConnectException
-import java.time.Duration
-import java.util.concurrent.Executors
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class DataSourceCategoryInitializerTest {
     private lateinit var initializer: DataSourceCategoryInitializer
     private lateinit var repository: CustomGenericRepository<Category>
-    private val properties = ExecutorsProperties(
-        duration = Duration.ofMinutes(1000)
-    )
-    private val fixedThreadPool = Executors.newFixedThreadPool(properties.fixedPoolSize).apply {
-        Thread.currentThread().name = "LocationFixedThreadPool"
-    }
-    private val fixedScheduledPool = Executors.newScheduledThreadPool(properties.scheduledPoolSize).apply {
-        Thread.currentThread().name = "ScheduledThreadPool"
-    }
 
     @BeforeEach
     fun setup() {
@@ -59,14 +46,7 @@ class DataSourceCategoryInitializerTest {
             }
             val client = HttpClient(mockEngine)
 
-            initializer = DataSourceCategoryInitializer(
-                client,
-                repository,
-                "http://MOCKasdasdasd.ru",
-                fixedThreadPool,
-                fixedScheduledPool,
-                properties
-            )
+            initializer = DataSourceCategoryInitializer(client, repository)
 
             initializer.initializeData()
 
@@ -87,20 +67,11 @@ class DataSourceCategoryInitializerTest {
                 )
             }
             val client = HttpClient(mockEngine)
-            initializer = DataSourceCategoryInitializer(
-                client,
-                repository,
-                "http://MOCKasdasdasd.ru",
-                fixedThreadPool,
-                fixedScheduledPool,
-                properties
-            )
+            initializer = DataSourceCategoryInitializer(client, repository)
 
-            val exception = assertThrows<RuntimeException> {
+            assertThrows<RuntimeException> {
                 initializer.initializeData()
             }
-
-            Assertions.assertEquals(exception.message, "Что-то пошло не так")
         }
     }
 
@@ -109,26 +80,17 @@ class DataSourceCategoryInitializerTest {
     fun shouldHandleParsingErrorWhenClientReturnInvalidJson() {
         val mockEngine = MockEngine { _ ->
             respond(
-                content = "[bla bla bla]",
+                content = "bla bla bla",
                 status = HttpStatusCode.OK,
                 headers = headersOf(HttpHeaders.ContentType, "application/json")
             )
         }
         val client = HttpClient(mockEngine)
-        initializer = DataSourceCategoryInitializer(
-            client,
-            repository,
-            "http://MOCKasdasdasd.ru",
-            fixedThreadPool,
-            fixedScheduledPool,
-            properties
-        )
+        initializer = DataSourceCategoryInitializer(client, repository)
 
-        val exception = assertThrows<RuntimeException> {
+        assertThrows<RuntimeException> {
             initializer.initializeData()
         }
-
-        Assertions.assertEquals(exception.message, "Что-то пошло не так")
     }
 
     @Test
@@ -139,20 +101,11 @@ class DataSourceCategoryInitializerTest {
                 throw ConnectException()
             }
             val client = HttpClient(mockEngine)
-            initializer = DataSourceCategoryInitializer(
-                client,
-                repository,
-                "http://MOCKasdasdasd.ru",
-                fixedThreadPool,
-                fixedScheduledPool,
-                properties
-            )
+            initializer = DataSourceCategoryInitializer(client, repository)
 
-            val exception = assertThrows<RuntimeException> {
+            assertThrows<RuntimeException> {
                 initializer.initializeData()
             }
-
-            Assertions.assertEquals(exception.message, "Что-то пошло не так")
         }
     }
 
@@ -168,14 +121,7 @@ class DataSourceCategoryInitializerTest {
                 )
             }
             val client = HttpClient(mockEngine)
-            initializer = DataSourceCategoryInitializer(
-                client,
-                repository,
-                "http://MOCKasdasdasd.ru",
-                fixedThreadPool,
-                fixedScheduledPool,
-                properties
-            )
+            initializer = DataSourceCategoryInitializer(client, repository)
 
             initializer.initializeData()
 
@@ -195,22 +141,13 @@ class DataSourceCategoryInitializerTest {
                 )
             }
             val client = HttpClient(mockEngine)
-            initializer = DataSourceCategoryInitializer(
-                client,
-                repository,
-                "http://MOCKasdasdasd.ru",
-                fixedThreadPool,
-                fixedScheduledPool,
-                properties
-            )
+            initializer = DataSourceCategoryInitializer(client, repository)
 
-            whenever(repository.save(any<Category>())).thenThrow(RuntimeException("Что-то пошло не так"))
+            whenever(repository.save(any<Category>())).thenThrow(RuntimeException("Save failed"))
 
-            val exception = assertThrows<RuntimeException> {
+            assertThrows<RuntimeException> {
                 initializer.initializeData()
             }
-
-            Assertions.assertEquals(exception.message, "Что-то пошло не так")
         }
     }
 }

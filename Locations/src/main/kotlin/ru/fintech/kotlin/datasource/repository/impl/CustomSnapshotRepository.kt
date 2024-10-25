@@ -1,21 +1,21 @@
 package ru.fintech.kotlin.datasource.repository.impl
 
-import ru.fintech.kotlin.datasource.DataSource
+import ru.fintech.kotlin.datasource.SnapshotDataSource
 import ru.fintech.kotlin.datasource.repository.EntityRepository
 import ru.fintech.kotlin.utils.IdentifiableEntity
-import ru.fintech.kotlin.utils.annotation.CustomEntity
+import ru.fintech.kotlin.utils.annotation.SnapshotEntity
 import kotlin.reflect.KClass
 import kotlin.reflect.full.findAnnotation
 
-class CustomGenericRepository<T : IdentifiableEntity>(
+class CustomSnapshotRepository<T : IdentifiableEntity>(
     entityClass: KClass<T>,
-    private val storage: DataSource
+    private val storage: SnapshotDataSource
 ) : EntityRepository<T> {
     private val tableName: String
 
     init {
         entityClass.objectInstance
-        val annotation = entityClass.findAnnotation<CustomEntity>()
+        val annotation = entityClass.findAnnotation<SnapshotEntity>()
             ?: throw IllegalArgumentException("Класс ${entityClass.simpleName} не имеет аннотации @CustomEntity")
         tableName = annotation.tableName
     }
@@ -25,18 +25,18 @@ class CustomGenericRepository<T : IdentifiableEntity>(
     }
 
     override fun findById(id: Long): T? {
-        return storage.get(tableName, id) as T?
+        return storage.getLast(tableName, id) as T
     }
 
     override fun findAllById(id: Long): List<T> {
-        throw NoSuchMethodException("Функция поиска всех элементов отсутствует")
+        return storage.get(tableName, id) as List<T>
     }
 
     override fun findAll(): List<T> {
-        return storage.listEntities(tableName) as List<T>
+        return listOf()
     }
 
     override fun delete(id: Long) {
-        storage.delete(tableName, id)
+        throw NoSuchMethodException("Функция удаления отсутствует")
     }
 }

@@ -1,7 +1,0 @@
-datasource:
-  initializer:
-    url: https://kudago.com
-initializer:
-  executors:
-    fixed-pool-size: 1
-    scheduled-pool-size: 1

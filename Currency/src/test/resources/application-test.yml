@@ -1,9 +1,0 @@
-currency:
-  api:
-    url: "http://localhost:42312"
-    valute:
-      url: "https://cbr.ru/scripts/XML_valFull.asp"
-
-springdoc:
-  api-docs:
-    path: /api-docs

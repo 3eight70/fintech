@@ -1,8 +1,0 @@
-datasource:
-  initializer:
-    url: https://kudago.com
-initializer:
-  executors:
-    fixed-pool-size: 4
-    scheduled-pool-size: 2
-    duration: PT24H

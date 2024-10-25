@@ -3,10 +3,13 @@ package ru.fintech.kotlin.location.impl
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 import ru.fintech.kotlin.datasource.EntityScanner
+import ru.fintech.kotlin.datasource.SnapshotScanner
 import ru.fintech.kotlin.datasource.repository.impl.CustomGenericRepository
+import ru.fintech.kotlin.datasource.repository.impl.CustomSnapshotRepository
 import ru.fintech.kotlin.location.LocationService
 import ru.fintech.kotlin.location.dto.LocationDto
 import ru.fintech.kotlin.location.entity.Location
+import ru.fintech.kotlin.location.entity.LocationSnapshot
 import ru.fintech.kotlin.location.mapper.LocationMapper
 import kotlin.random.Random
 
@@ -15,6 +18,10 @@ class LocationServiceImpl(
     private val locationRepository: CustomGenericRepository<Location> = CustomGenericRepository(
         Location::class,
         EntityScanner.getEntityStorage()
+    ),
+    private val locationSnapshotRepository: CustomSnapshotRepository<LocationSnapshot> = CustomSnapshotRepository(
+        LocationSnapshot::class,
+        SnapshotScanner.getEntityStorage()
     )
 ) : LocationService {
     private val log = LoggerFactory.getLogger(this::class.java)
@@ -44,6 +51,7 @@ class LocationServiceImpl(
             name = locationDto.name,
             slug = locationDto.slug
         )
+        locationSnapshotRepository.save(LocationSnapshot(location))
 
         return LocationMapper.entityToDto(locationRepository.save(location))
     }
@@ -55,6 +63,7 @@ class LocationServiceImpl(
 
         location.name = locationDto.name
         location.slug = locationDto.slug
+        locationSnapshotRepository.save(LocationSnapshot(location))
 
         return LocationMapper.entityToDto(locationRepository.save(location))
     }

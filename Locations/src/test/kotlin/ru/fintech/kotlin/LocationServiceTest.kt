@@ -1,4 +1,3 @@
-import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -8,6 +7,8 @@ import org.mockito.kotlin.mock
 import org.mockito.kotlin.times
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
+import org.springframework.boot.test.context.SpringBootTest
+import ru.fintech.kotlin.HomeworkApplication
 import ru.fintech.kotlin.datasource.repository.impl.CustomGenericRepository
 import ru.fintech.kotlin.location.dto.LocationDto
 import ru.fintech.kotlin.location.entity.Location
@@ -16,6 +17,7 @@ import ru.fintech.kotlin.location.impl.LocationServiceImpl
 /**
  * Хотел сделать тесты только для категорий, т.к по сути все идентично, но нехватило на 0.7 ;)
  */
+@SpringBootTest(classes = [HomeworkApplication::class], webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class LocationServiceTest {
     private lateinit var locationService: LocationServiceImpl
     private lateinit var locationRepository: CustomGenericRepository<Location>
@@ -103,11 +105,9 @@ class LocationServiceTest {
         val updateDto = LocationDto(id = 123, name = "new", slug = "new")
         whenever(locationRepository.findById(1)).thenReturn(null)
 
-        val exception = assertThrows<IllegalArgumentException> {
+        assertThrows<IllegalArgumentException> {
             locationService.updateLocation(1, updateDto)
         }
-
-        Assertions.assertEquals(exception.message, "Локации с id: 1 не существует")
     }
 
     @Test

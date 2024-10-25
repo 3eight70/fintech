@@ -2,4 +2,5 @@ rootProject.name = 'kotlin'
 include 'Locations'
 include 'Currency'
 include 'News'
+include 'CustomLinkedList'
 

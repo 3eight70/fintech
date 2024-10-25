@@ -1,7 +1,0 @@
-news-service:
-  rate-limiter:
-    max-concurrent-request: 2
-  workers:
-    number: 5
-  pages: 30
-  test: true
