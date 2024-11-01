@@ -16,6 +16,7 @@ import ru.tinkoff.fintech.user.dto.LoginCredentials;
 import ru.tinkoff.fintech.user.dto.RegisterUserDto;
 import ru.tinkoff.fintech.user.dto.UserDto;
 import ru.tinkoff.fintech.user.entity.User;
+import ru.tinkoff.fintech.user.exceptions.UnauthorizedException;
 import ru.tinkoff.fintech.user.exceptions.UserAlreadyExistsException;
 import ru.tinkoff.fintech.user.exceptions.UserNotFoundException;
 import ru.tinkoff.fintech.user.mapper.UserMapper;
@@ -48,6 +49,13 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public AccessTokenDto loginUser(LoginCredentials loginCredentials) {
+        User user = userRepository.findByLogin(loginCredentials.getLogin())
+                .orElseThrow(UnauthorizedException::new);
+
+        if (!user.getPassword().equals(loginCredentials.getPassword())){
+            throw new UnauthorizedException();
+        }
+
         return null;
     }
 
