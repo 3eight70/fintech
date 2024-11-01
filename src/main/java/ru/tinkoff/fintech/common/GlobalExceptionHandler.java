@@ -1,6 +1,9 @@
 package ru.tinkoff.fintech.common;
 
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolationException;
 import java.time.Instant;
+import java.util.ArrayList;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -8,13 +11,34 @@ import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import ru.tinkoff.fintech.common.dto.ErrorDto;
+import ru.tinkoff.fintech.common.dto.ErrorResponse;
 import ru.tinkoff.fintech.common.dto.Response;
 import ru.tinkoff.fintech.common.exception.BadRequestException;
 import ru.tinkoff.fintech.common.exception.NotFoundException;
 
+import java.util.List;
+
 @ControllerAdvice
 @Slf4j
 public class GlobalExceptionHandler {
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<ErrorResponse> handleValidationExceptions(ConstraintViolationException ex) {
+        List<ErrorDto> errors = new ArrayList<>();
+        for (ConstraintViolation<?> violation : ex.getConstraintViolations()) {
+            errors.add(new ErrorDto(violation.getPropertyPath().toString(), violation.getMessage()));
+        }
+
+        ErrorResponse errorResponse = new ErrorResponse(
+                HttpStatus.BAD_REQUEST.value(),
+                "Ошибка валидации",
+                Instant.now(),
+                errors
+        );
+
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+    }
+
     @ExceptionHandler(MissingServletRequestParameterException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<Response> handleMissingServletRequestParameterException(MissingServletRequestParameterException e) {
