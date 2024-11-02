@@ -2,6 +2,7 @@ package ru.tinkoff.fintech.user.mapper;
 
 import java.util.UUID;
 import ru.tinkoff.fintech.user.dto.RegisterUserDto;
+import ru.tinkoff.fintech.user.dto.UserDto;
 import ru.tinkoff.fintech.user.entity.User;
 import ru.tinkoff.fintech.user.enums.Role;
 
@@ -12,6 +13,14 @@ public final class UserMapper {
                 registerUserDto.getLogin(),
                 registerUserDto.getPassword(),
                 Role.USER
+        );
+    }
+
+    public static UserDto entityToDto(User user) {
+        return new UserDto(
+                user.getId(),
+                user.getLogin(),
+                user.getRole()
         );
     }
 }

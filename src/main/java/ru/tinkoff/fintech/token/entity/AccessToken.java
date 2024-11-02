@@ -21,7 +21,6 @@ import lombok.Setter;
 @Table(name = "tokens")
 public class AccessToken {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
     @Column(nullable = false, unique = true)

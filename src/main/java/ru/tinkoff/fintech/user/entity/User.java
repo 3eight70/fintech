@@ -29,7 +29,6 @@ import ru.tinkoff.fintech.user.enums.Role;
 @Table(name = "users")
 public class User implements UserDetails {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
     @Column(unique = true, nullable = false)

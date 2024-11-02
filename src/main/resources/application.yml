@@ -12,6 +12,12 @@ spring:
       ddl-auto: validate
     show-sql: true
 
+
 springdoc:
   api-docs:
     path: /api-docs
+
+authentication:
+  expiration: 10m
+  remember-me-expiration: 30d
+  secret: c2VjcmV0S2V5MTIzNDU2Nzg5MDEyMzQ1Njc4OQBASDASFavsafasfasvbascascasvas

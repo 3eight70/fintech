@@ -4,7 +4,10 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.annotation.Validated;
@@ -28,6 +31,7 @@ import ru.tinkoff.fintech.user.service.UserService;
 public class UserController {
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
+    private final AuthenticationManager authenticationManager;
 
     @PostMapping("/login")
     @Operation(
@@ -37,9 +41,19 @@ public class UserController {
     public ResponseEntity<AccessTokenDto> loginUser(
             @RequestBody @Validated LoginCredentials loginCredentials
     ) {
-        loginCredentials.setPassword(passwordEncoder.encode(loginCredentials.getPassword()));
+        var authentication =
+                authenticationManager.authenticate(
+                        new UsernamePasswordAuthenticationToken(
+                                loginCredentials.getLogin(),
+                                loginCredentials.getPassword()
+                        )
+                );
 
-        return ResponseEntity.ok(userService.loginUser(loginCredentials));
+        if (authentication.isAuthenticated()) {
+            return ResponseEntity.ok(userService.loginUser(loginCredentials));
+        }
+
+        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
     }
 
     @PostMapping("/register")
@@ -77,7 +91,7 @@ public class UserController {
             @AuthenticationPrincipal UserDto userDto,
             @RequestBody @Validated ChangePasswordDto changePasswordDto
     ) {
-        if (changePasswordDto.getCurrentPassword().equals(changePasswordDto.getNewPassword())){
+        if (changePasswordDto.getCurrentPassword().equals(changePasswordDto.getNewPassword())) {
             throw new SamePasswordException();
         }
 
