@@ -5,7 +5,6 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.stereotype.Component;
 import ru.tinkoff.fintech.configuration.properties.AuthenticationProperties;
-import ru.tinkoff.fintech.token.entity.AccessToken;
 import ru.tinkoff.fintech.token.repository.AccessTokenRepository;
 import ru.tinkoff.fintech.user.entity.User;
 

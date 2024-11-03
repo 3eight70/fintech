@@ -5,6 +5,7 @@ import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -76,6 +77,17 @@ public class GlobalExceptionHandler {
                         Instant.now()
                 ),
                 HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(BadCredentialsException.class)
+    public ResponseEntity<Response> handleBadCredentialsException(BadCredentialsException e) {
+        Response response = new Response(
+                HttpStatus.UNAUTHORIZED.value(),
+                "Неверный логин или пароль",
+                Instant.now()
+        );
+
+        return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
     }
 
     @ExceptionHandler(ForbiddenException.class)

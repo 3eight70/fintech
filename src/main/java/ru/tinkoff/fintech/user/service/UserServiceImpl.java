@@ -1,10 +1,12 @@
 package ru.tinkoff.fintech.user.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.tinkoff.fintech.common.dto.Response;
@@ -34,6 +36,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private final UserRepository userRepository;
     private final JwtTokenUtils jwtTokenUtils;
     private final AccessTokenRepository accessTokenRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -44,6 +47,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     @Transactional
     public AccessTokenDto registerUser(RegisterUserDto registerUserDto) {
+        registerUserDto.setPassword(passwordEncoder.encode(registerUserDto.getPassword()));
+
         Optional<User> existingUser = userRepository.findByLogin(registerUserDto.getLogin());
         if (existingUser.isPresent()) {
             throw new UserAlreadyExistsException(registerUserDto.getLogin());
@@ -100,16 +105,18 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         var user = userRepository.findByLogin(userDto.getLogin())
                 .orElseThrow(() -> new UserNotFoundException(userDto.getLogin()));
 
-        if (!user.getPassword().equals(changePasswordDto.getCurrentPassword())) {
-            throw new WrongPasswordException()  ;
+        if (!passwordEncoder.matches(changePasswordDto.getCurrentPassword(), user.getPassword())) {
+            throw new WrongPasswordException();
         }
+
+        changePasswordDto.setNewPassword(passwordEncoder.encode(changePasswordDto.getNewPassword()));
 
         user.setPassword(changePasswordDto.getNewPassword());
         userRepository.save(user);
 
         return new Response(
                 HttpStatus.OK.value(),
-                "Пользователь успешно изменен",
+                "Пароль успешно изменен",
                 Instant.now()
         );
     }

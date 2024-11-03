@@ -11,6 +11,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,7 +31,6 @@ import ru.tinkoff.fintech.user.service.UserService;
 @Tag(name = "Пользователь", description = "Отвечает за авторизацию и работу с пользователями")
 public class UserController {
     private final UserService userService;
-    private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
 
     @PostMapping("/login")
@@ -64,8 +64,6 @@ public class UserController {
     public ResponseEntity<AccessTokenDto> registerUser(
             @RequestBody @Validated RegisterUserDto registerUserDto
     ) {
-        registerUserDto.setPassword(passwordEncoder.encode(registerUserDto.getPassword()));
-
         return ResponseEntity.ok(userService.registerUser(registerUserDto));
     }
 
@@ -94,9 +92,6 @@ public class UserController {
         if (changePasswordDto.getCurrentPassword().equals(changePasswordDto.getNewPassword())) {
             throw new SamePasswordException();
         }
-
-        changePasswordDto.setCurrentPassword(passwordEncoder.encode(changePasswordDto.getCurrentPassword()));
-        changePasswordDto.setNewPassword(passwordEncoder.encode(changePasswordDto.getNewPassword()));
 
         return ResponseEntity.ok(userService.changePassword(userDto, changePasswordDto));
     }
