@@ -46,5 +46,5 @@ jobs:
 
       - name: Push Docker image to GitHub Packages
         run: |
-          docker tag fintech-app:${{ github.sha }} docker.pkg.github.com/${{ github.repository }}/fintech-app:${{ github.sha }}
-          docker push docker.pkg.github.com/${{ github.repository }}/fintech-app:${{ github.sha }}
+          docker tag fintech-app:${{ github.sha }} docker.pkg.github.com/fintech/fintech-app:${{ github.sha }}
+          docker push docker.pkg.github.com/fintech/fintech-app:${{ github.sha }}
