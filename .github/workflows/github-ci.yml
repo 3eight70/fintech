@@ -42,9 +42,9 @@ jobs:
           docker build -t fintech-app:${{ github.sha }} .
 
       - name: Log in to GitHub Packages
-        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login https://ghcr.io -u ${{ github.actor }} --password-stdin
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
       - name: Push Docker image to GitHub Packages
         run: |
-          docker tag fintech-app:${{ github.sha }} ghcr.io/${{ github.repository_owner }}/fintech/fintech-app:${{ github.sha }}
-          docker push ghcr.io/${{ github.repository_owner }}/fintech/fintech-app:${{ github.sha }}
+          docker tag fintech-app:${{ github.sha }} ghcr.io/${{ github.repository_owner }}/${{ github.repository }}/fintech-app:${{ github.sha }}
+          docker push ghcr.io/${{ github.repository_owner }}/${{ github.repository }}/fintech-app:${{ github.sha }}
