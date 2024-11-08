@@ -20,7 +20,6 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import ru.tinkoff.fintech.place.dto.PlaceRequestDto;
 import ru.tinkoff.fintech.user.dto.LoginCredentials;
-import ru.tinkoff.fintech.user.dto.RegisterUserDto;
 import ru.tinkoff.fintech.user.entity.User;
 import ru.tinkoff.fintech.user.enums.Role;
 import ru.tinkoff.fintech.user.repository.UserRepository;

@@ -21,13 +21,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.tinkoff.fintech.common.dto.Response;
-import ru.tinkoff.fintech.common.exception.ForbiddenException;
 import ru.tinkoff.fintech.place.dto.PlaceDetailedDto;
 import ru.tinkoff.fintech.place.dto.PlaceDto;
 import ru.tinkoff.fintech.place.dto.PlaceRequestDto;
 import ru.tinkoff.fintech.place.service.PlaceService;
 import ru.tinkoff.fintech.user.dto.UserDto;
-import ru.tinkoff.fintech.user.enums.Role;
 
 @RestController
 @RequiredArgsConstructor

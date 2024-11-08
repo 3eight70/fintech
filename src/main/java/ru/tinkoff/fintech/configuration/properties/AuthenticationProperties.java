@@ -1,8 +1,7 @@
 package ru.tinkoff.fintech.configuration.properties;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
-
 import java.time.Duration;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @ConfigurationProperties("authentication")
 public class AuthenticationProperties {

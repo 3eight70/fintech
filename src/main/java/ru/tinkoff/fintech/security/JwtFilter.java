@@ -5,6 +5,8 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -15,9 +17,6 @@ import ru.tinkoff.fintech.user.exceptions.UnauthorizedException;
 import ru.tinkoff.fintech.user.mapper.UserMapper;
 import ru.tinkoff.fintech.user.repository.UserRepository;
 import ru.tinkoff.fintech.utils.JwtTokenUtils;
-
-import java.io.IOException;
-import java.util.List;
 
 public class JwtFilter extends OncePerRequestFilter {
     private final Logger log = LoggerFactory.getLogger(this.getClass());

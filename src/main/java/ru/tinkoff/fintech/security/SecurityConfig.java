@@ -1,5 +1,7 @@
 package ru.tinkoff.fintech.security;
 
+import java.time.Instant;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,9 +20,6 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 import ru.tinkoff.fintech.user.repository.UserRepository;
 import ru.tinkoff.fintech.utils.JwtTokenUtils;
-
-import java.time.Instant;
-import java.util.List;
 
 @Configuration
 @RequiredArgsConstructor

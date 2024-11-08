@@ -1,5 +1,6 @@
 package ru.tinkoff.fintech;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,12 +16,11 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 import ru.tinkoff.fintech.user.dto.ChangePasswordDto;
 import ru.tinkoff.fintech.user.dto.LoginCredentials;
 import ru.tinkoff.fintech.user.dto.RegisterUserDto;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import ru.tinkoff.fintech.user.repository.UserRepository;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static ru.tinkoff.fintech.utils.TokenUtils.extractTokenFromResponse;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)

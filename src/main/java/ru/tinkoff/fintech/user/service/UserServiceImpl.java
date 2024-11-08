@@ -1,7 +1,9 @@
 package ru.tinkoff.fintech.user.service;
 
+import java.time.Instant;
+import java.util.Optional;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -25,10 +27,6 @@ import ru.tinkoff.fintech.user.exceptions.WrongPasswordException;
 import ru.tinkoff.fintech.user.mapper.UserMapper;
 import ru.tinkoff.fintech.user.repository.UserRepository;
 import ru.tinkoff.fintech.utils.JwtTokenUtils;
-
-import java.time.Instant;
-import java.util.Optional;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
