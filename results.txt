@@ -1,11 +1,11 @@
-Benchmark                                                                               Mode  Cnt    Score    Error  Units
-r.f.b.kafka.benchmarks.OneProducerToOneConsumerKafkaTest.kafkaProducersConsumers       thrpt    5   60,371 ±  4,876  ops/s
-r.f.b.kafka.benchmarks.OneProducerToThreeConsumerKafkaTest.kafkaProducersConsumers     thrpt    5    4,214 ±  0,067  ops/s
-r.f.b.kafka.benchmarks.TenProducerToTenConsumerKafkaTest.kafkaProducersConsumers       thrpt    5    9,107 ±  0,060  ops/s
-r.f.b.kafka.benchmarks.ThreeProducerToOneConsumerKafkaTest.kafkaProducersConsumers     thrpt    5  117,253 ± 10,910  ops/s
-r.f.b.kafka.benchmarks.ThreeProducerToThreeConsumerKafkaTest.kafkaProducersConsumers   thrpt    5    4,536 ±  0,016  ops/s
-r.f.b.rabbit.benchmarks.OneProducerToOneConsumerRabbitTest.rabbitProducerConsumer      thrpt    5   15,930 ±  0,069  ops/s
-r.f.b.rabbit.benchmarks.OneProducerToThreeConsumerRabbitTest.rabbitProducerConsumer    thrpt    5   15,867 ±  0,046  ops/s
-r.f.b.rabbit.benchmarks.TenProducerToTenConsumerRabbitTest.rabbitProducerConsumer      thrpt    5   15,989 ±  0,043  ops/s
-r.f.b.rabbit.benchmarks.ThreeProducerToOneConsumerRabbitTest.rabbitProducerConsumer    thrpt    5   15,898 ±  0,040  ops/s
-r.f.b.rabbit.benchmarks.ThreeProducerToThreeConsumerRabbitTest.rabbitProducerConsumer  thrpt    5   15,939 ±  0,104  ops/s
+Benchmark                                                                               Mode  Cnt    Score   Error  Units
+r.f.b.kafka.benchmarks.OneProducerToOneConsumerKafkaTest.kafkaProducersConsumers       thrpt   30   62,756 ± 0,456  ops/s
+r.f.b.kafka.benchmarks.OneProducerToThreeConsumerKafkaTest.kafkaProducersConsumers     thrpt   30    4,223 ± 0,004  ops/s
+r.f.b.kafka.benchmarks.TenProducerToTenConsumerKafkaTest.kafkaProducersConsumers       thrpt   30    9,084 ± 0,005  ops/s
+r.f.b.kafka.benchmarks.ThreeProducerToOneConsumerKafkaTest.kafkaProducersConsumers     thrpt   30  120,282 ± 1,429  ops/s
+r.f.b.kafka.benchmarks.ThreeProducerToThreeConsumerKafkaTest.kafkaProducersConsumers   thrpt   30    4,521 ± 0,002  ops/s
+r.f.b.rabbit.benchmarks.OneProducerToOneConsumerRabbitTest.rabbitProducerConsumer      thrpt   30   15,864 ± 0,009  ops/s
+r.f.b.rabbit.benchmarks.OneProducerToThreeConsumerRabbitTest.rabbitProducerConsumer    thrpt   30   15,875 ± 0,011  ops/s
+r.f.b.rabbit.benchmarks.TenProducerToTenConsumerRabbitTest.rabbitProducerConsumer      thrpt   30   15,969 ± 0,017  ops/s
+r.f.b.rabbit.benchmarks.ThreeProducerToOneConsumerRabbitTest.rabbitProducerConsumer    thrpt   30   15,840 ± 0,011  ops/s
+r.f.b.rabbit.benchmarks.ThreeProducerToThreeConsumerRabbitTest.rabbitProducerConsumer  thrpt   30   15,881 ± 0,011  ops/s
