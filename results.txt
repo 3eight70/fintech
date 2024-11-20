@@ -1,11 +1,27 @@
-Benchmark                                                                               Mode  Cnt    Score   Error  Units
-r.f.b.kafka.benchmarks.OneProducerToOneConsumerKafkaTest.kafkaProducersConsumers       thrpt   30   62,756 ± 0,456  ops/s
-r.f.b.kafka.benchmarks.OneProducerToThreeConsumerKafkaTest.kafkaProducersConsumers     thrpt   30    4,223 ± 0,004  ops/s
-r.f.b.kafka.benchmarks.TenProducerToTenConsumerKafkaTest.kafkaProducersConsumers       thrpt   30    9,084 ± 0,005  ops/s
-r.f.b.kafka.benchmarks.ThreeProducerToOneConsumerKafkaTest.kafkaProducersConsumers     thrpt   30  120,282 ± 1,429  ops/s
-r.f.b.kafka.benchmarks.ThreeProducerToThreeConsumerKafkaTest.kafkaProducersConsumers   thrpt   30    4,521 ± 0,002  ops/s
-r.f.b.rabbit.benchmarks.OneProducerToOneConsumerRabbitTest.rabbitProducerConsumer      thrpt   30   15,864 ± 0,009  ops/s
-r.f.b.rabbit.benchmarks.OneProducerToThreeConsumerRabbitTest.rabbitProducerConsumer    thrpt   30   15,875 ± 0,011  ops/s
-r.f.b.rabbit.benchmarks.TenProducerToTenConsumerRabbitTest.rabbitProducerConsumer      thrpt   30   15,969 ± 0,017  ops/s
-r.f.b.rabbit.benchmarks.ThreeProducerToOneConsumerRabbitTest.rabbitProducerConsumer    thrpt   30   15,840 ± 0,011  ops/s
-r.f.b.rabbit.benchmarks.ThreeProducerToThreeConsumerRabbitTest.rabbitProducerConsumer  thrpt   30   15,881 ± 0,011  ops/s
+Benchmark                                                                              (messageSize)   Mode  Cnt    Score     Error  Units
+r.f.b.kafka.benchmarks.OneProducerToOneConsumerKafkaTest.kafkaProducersConsumers               small  thrpt    3   63,080 ±  15,101  ops/s
+r.f.b.kafka.benchmarks.OneProducerToOneConsumerKafkaTest.kafkaProducersConsumers                 big  thrpt    3   96,376 ± 121,614  ops/s
+r.f.b.kafka.benchmarks.OneProducerToThreeConsumerKafkaTest.kafkaProducersConsumers             small  thrpt    3    4,552 ±   0,051  ops/s
+r.f.b.kafka.benchmarks.OneProducerToThreeConsumerKafkaTest.kafkaProducersConsumers               big  thrpt    3    4,459 ±   0,384  ops/s
+r.f.b.kafka.benchmarks.TenProducerToTenConsumerKafkaTest.kafkaProducersConsumers               small  thrpt    3    9,130 ±   0,149  ops/s
+r.f.b.kafka.benchmarks.TenProducerToTenConsumerKafkaTest.kafkaProducersConsumers                 big  thrpt    3    9,215 ±   0,493  ops/s
+r.f.b.kafka.benchmarks.ThreeProducerToOneConsumerKafkaTest.kafkaProducersConsumers             small  thrpt    3  122,100 ± 270,722  ops/s
+r.f.b.kafka.benchmarks.ThreeProducerToOneConsumerKafkaTest.kafkaProducersConsumers               big  thrpt    3   55,635 ±  25,923  ops/s
+r.f.b.kafka.benchmarks.ThreeProducerToThreeConsumerKafkaTest.kafkaProducersConsumers           small  thrpt    3    4,513 ±   0,391  ops/s
+r.f.b.kafka.benchmarks.ThreeProducerToThreeConsumerKafkaTest.kafkaProducersConsumers             big  thrpt    3    4,420 ±   0,550  ops/s
+r.f.b.rabbit.benchmarks.OneProducerToOneConsumerRabbitTest.rabbitProducerConsumer              small  thrpt    3   15,932 ±   0,730  ops/s
+r.f.b.rabbit.benchmarks.OneProducerToOneConsumerRabbitTest.rabbitProducerConsumer                big  thrpt    3   16,002 ±   0,247  ops/s
+r.f.b.rabbit.benchmarks.OneProducerToThreeConsumerRabbitTest.rabbitProducerConsumer            small  thrpt    3   15,940 ±   0,816  ops/s
+r.f.b.rabbit.benchmarks.OneProducerToThreeConsumerRabbitTest.rabbitProducerConsumer              big  thrpt    3   15,979 ±   0,281  ops/s
+r.f.b.rabbit.benchmarks.TenProducerToTenConsumerRabbitTest.rabbitProducerConsumer              small  thrpt    3   16,016 ±   0,339  ops/s
+r.f.b.rabbit.benchmarks.TenProducerToTenConsumerRabbitTest.rabbitProducerConsumer                big  thrpt    3   15,929 ±   0,608  ops/s
+r.f.b.rabbit.benchmarks.ThreeProducerToOneConsumerRabbitTest.rabbitProducerConsumer            small  thrpt    3   15,958 ±   0,178  ops/s
+r.f.b.rabbit.benchmarks.ThreeProducerToOneConsumerRabbitTest.rabbitProducerConsumer              big  thrpt    3   16,035 ±   0,335  ops/s
+r.f.b.rabbit.benchmarks.ThreeProducerToThreeConsumerRabbitTest.rabbitProducerConsumer          small  thrpt    3   15,971 ±   0,225  ops/s
+r.f.b.rabbit.benchmarks.ThreeProducerToThreeConsumerRabbitTest.rabbitProducerConsumer            big  thrpt    3   16,044 ±   0,588  ops/s
+r.f.b.kafka.benchmarks.OneProducerToOneConsumerKafkaTest.kafkaProducersConsumers               small   avgt    3    0,008 ±   0,022   s/op
+r.f.b.kafka.benchmarks.OneProducerToOneConsumerKafkaTest.kafkaProducersConsumers                 big   avgt    3    0,015 ±   0,115   s/op
+r.f.b.kafka.benchmarks.OneProducerToThreeConsumerKafkaTest.kafkaProducersConsumers             small   avgt    3    0,219 ±   0,018   s/op
+r.f.b.kafka.benchmarks.OneProducerToThreeConsumerKafkaTest.kafkaProducersConsumers               big   avgt    3    0,222 ±   0,011   s/op
+r.f.b.kafka.benchmarks.TenProducerToTenConsumerKafkaTest.kafkaProducersConsumers               small   avgt    3    0,110 ±   0,003   s/op
+r.f.b.kafka.benchmarks.TenProducerToTenConsumerKafkaTest.kafkaProducersConsumers                 big   avgt    3    0,108 ±   0,001   s/op

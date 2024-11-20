@@ -49,7 +49,7 @@ public abstract class BaseRabbitTest extends BaseTest {
     public void rabbitProducerConsumer(Blackhole blackhole) {
         producers.forEach(producer -> {
             try {
-                var message = "Тестовое сообщение " + producer.getIndex();
+                var message = getMessage(messageSize, producer.getIndex());
                 producer.sendMessage(message);
                 blackhole.consume(message);
             } catch (IOException e) {

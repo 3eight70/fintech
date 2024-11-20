@@ -65,7 +65,7 @@ public abstract class BaseRabbitAsyncTest extends BaseTest {
         producers.forEach(producer -> producerFutures.add(
                         producerExecutor.submit(() -> {
                             try {
-                                var message = "Тестовое сообщение " + producer.getIndex();
+                                var message = getMessage(messageSize, producer.getIndex());
                                 producer.sendMessage(message);
                                 blackhole.consume(message);
                             } catch (IOException e) {

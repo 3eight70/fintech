@@ -46,13 +46,13 @@ public abstract class BaseKafkaTest extends BaseTest {
     @Benchmark
     public void kafkaProducersConsumers(Blackhole blackhole) {
         producers.forEach(producer -> {
-            var sendFuture = producer.sendMessage("Тестовое сообщение 1");
+            var sendFuture = producer.sendMessage(getMessage(messageSize, producer.getIndex()));
             blackhole.consume(sendFuture);
             blackhole.consume(producer);
         });
         consumers.forEach(consumer -> {
-            var message = consumer.consumeMessage();
-            blackhole.consume(message);
+            var messages = consumer.consumeMessage();
+            messages.forEach(blackhole::consume);
             blackhole.consume(consumer);
         });
         blackhole.consume(producers);

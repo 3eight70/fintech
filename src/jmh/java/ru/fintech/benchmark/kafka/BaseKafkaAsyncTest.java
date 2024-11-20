@@ -61,7 +61,7 @@ public abstract class BaseKafkaAsyncTest extends BaseTest {
 
         for (KafkaProducerExample producer : producers) {
             producerFutures.add(producerExecutor.submit(() -> {
-                var sendFuture = producer.sendMessage("Тестовое сообщение " + producer.getIndex());
+                var sendFuture = producer.sendMessage(getMessage(messageSize, producer.getIndex()));
                 blackhole.consume(sendFuture);
             }));
             blackhole.consume(producer);
@@ -69,8 +69,8 @@ public abstract class BaseKafkaAsyncTest extends BaseTest {
 
         for (KafkaConsumerExample consumer : consumers) {
             consumerFutures.add(consumerExecutor.submit(() -> {
-                var message = consumer.consumeMessage();
-                blackhole.consume(message);
+                var messages = consumer.consumeMessage();
+                messages.forEach(blackhole::consume);
             }));
             blackhole.consume(consumer);
         }
