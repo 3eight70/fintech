@@ -1,0 +1,69 @@
+2024-11-22T17:22:19.209+07:00 INFO logId[] - Starting FintechApplication using Java 17.0.12 with PID 17476 (D:\Programming\Fintech\build\classes\java\main started by Danya in D:\Programming\Fintech)
+2024-11-22T17:22:19.211+07:00 INFO logId[] - No active profile set, falling back to 1 default profile: "default"
+2024-11-22T17:22:20.029+07:00 INFO logId[] - Tomcat initialized with port 8080 (http)
+2024-11-22T17:22:20.036+07:00 INFO logId[] - Initializing ProtocolHandler ["http-nio-8080"]
+2024-11-22T17:22:20.038+07:00 INFO logId[] - Starting service [Tomcat]
+2024-11-22T17:22:20.039+07:00 INFO logId[] - Starting Servlet engine: [Apache Tomcat/10.1.30]
+2024-11-22T17:22:20.088+07:00 INFO logId[] - Initializing Spring embedded WebApplicationContext
+2024-11-22T17:22:20.088+07:00 INFO logId[] - Root WebApplicationContext: initialization completed in 848 ms
+2024-11-22T17:22:20.540+07:00 INFO logId[] - Exposing 2 endpoints beneath base path '/actuator'
+2024-11-22T17:22:20.569+07:00 INFO logId[] - Starting ProtocolHandler ["http-nio-8080"]
+2024-11-22T17:22:20.583+07:00 INFO logId[] - Tomcat started on port 8080 (http) with context path '/'
+2024-11-22T17:22:20.594+07:00 INFO logId[] - Started FintechApplication in 1.685 seconds (process running for 2.237)
+2024-11-22T17:22:21.110+07:00 INFO logId[] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-11-22T17:22:21.111+07:00 INFO logId[] - Initializing Servlet 'dispatcherServlet'
+2024-11-22T17:22:21.112+07:00 INFO logId[] - Completed initialization in 1 ms
+2024-11-22T17:22:24.545+07:00 INFO logId[a2a50c6b-d25f-4884-a10f-21b49a00679d] - Log info
+2024-11-22T17:22:24.545+07:00 WARN logId[a2a50c6b-d25f-4884-a10f-21b49a00679d] - Log warn
+2024-11-22T17:22:24.545+07:00 ERROR logId[a2a50c6b-d25f-4884-a10f-21b49a00679d] - Log error
+2024-11-22T17:23:09.870+07:00 [main] INFO logId[] - r.tinkoff.fintech.FintechApplication : Starting FintechApplication using Java 17.0.12 with PID 22280 (D:\Programming\Fintech\build\classes\java\main started by Danya in D:\Programming\Fintech)
+2024-11-22T17:23:09.872+07:00 [main] INFO logId[] - r.tinkoff.fintech.FintechApplication : No active profile set, falling back to 1 default profile: "default"
+2024-11-22T17:23:10.771+07:00 [main] INFO logId[] - o.s.b.w.e.tomcat.TomcatWebServer : Tomcat initialized with port 8080 (http)
+2024-11-22T17:23:10.779+07:00 [main] INFO logId[] - o.a.coyote.http11.Http11NioProtocol : Initializing ProtocolHandler ["http-nio-8080"]
+2024-11-22T17:23:10.782+07:00 [main] INFO logId[] - o.a.catalina.core.StandardService : Starting service [Tomcat]
+2024-11-22T17:23:10.782+07:00 [main] INFO logId[] - o.a.catalina.core.StandardEngine : Starting Servlet engine: [Apache Tomcat/10.1.30]
+2024-11-22T17:23:10.828+07:00 [main] INFO logId[] - o.a.c.c.C.[Tomcat].[localhost].[/] : Initializing Spring embedded WebApplicationContext
+2024-11-22T17:23:10.829+07:00 [main] INFO logId[] - o.s.b.w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 925 ms
+2024-11-22T17:23:11.263+07:00 [main] INFO logId[] - o.s.b.a.e.web.EndpointLinksResolver : Exposing 2 endpoints beneath base path '/actuator'
+2024-11-22T17:23:11.292+07:00 [main] INFO logId[] - o.a.coyote.http11.Http11NioProtocol : Starting ProtocolHandler ["http-nio-8080"]
+2024-11-22T17:23:11.311+07:00 [main] INFO logId[] - o.s.b.w.e.tomcat.TomcatWebServer : Tomcat started on port 8080 (http) with context path '/'
+2024-11-22T17:23:11.334+07:00 [main] INFO logId[] - r.tinkoff.fintech.FintechApplication : Started FintechApplication in 1.751 seconds (process running for 2.301)
+2024-11-22T17:23:11.749+07:00 [RMI TCP Connection(2)-25.13.210.249] INFO logId[] - o.a.c.c.C.[Tomcat].[localhost].[/] : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-11-22T17:23:11.750+07:00 [RMI TCP Connection(2)-25.13.210.249] INFO logId[] - o.s.web.servlet.DispatcherServlet : Initializing Servlet 'dispatcherServlet'
+2024-11-22T17:23:11.751+07:00 [RMI TCP Connection(2)-25.13.210.249] INFO logId[] - o.s.web.servlet.DispatcherServlet : Completed initialization in 1 ms
+2024-11-22T17:23:13.882+07:00 [http-nio-8080-exec-2] INFO logId[22bec61f-9c0e-4479-8832-6767dd3b8b86] - r.t.f.controller.HomeworkController : Log info
+2024-11-22T17:23:13.882+07:00 [http-nio-8080-exec-2] WARN logId[22bec61f-9c0e-4479-8832-6767dd3b8b86] - r.t.f.controller.HomeworkController : Log warn
+2024-11-22T17:23:13.882+07:00 [http-nio-8080-exec-2] ERROR logId[22bec61f-9c0e-4479-8832-6767dd3b8b86] - r.t.f.controller.HomeworkController : Log error
+2024-11-22T17:23:34.654+07:00 logId[] [main] INFO - r.tinkoff.fintech.FintechApplication : Starting FintechApplication using Java 17.0.12 with PID 22252 (D:\Programming\Fintech\build\classes\java\main started by Danya in D:\Programming\Fintech)
+2024-11-22T17:23:34.656+07:00 logId[] [main] INFO - r.tinkoff.fintech.FintechApplication : No active profile set, falling back to 1 default profile: "default"
+2024-11-22T17:23:35.529+07:00 logId[] [main] INFO - o.s.b.w.e.tomcat.TomcatWebServer : Tomcat initialized with port 8080 (http)
+2024-11-22T17:23:35.536+07:00 logId[] [main] INFO - o.a.coyote.http11.Http11NioProtocol : Initializing ProtocolHandler ["http-nio-8080"]
+2024-11-22T17:23:35.539+07:00 logId[] [main] INFO - o.a.catalina.core.StandardService : Starting service [Tomcat]
+2024-11-22T17:23:35.539+07:00 logId[] [main] INFO - o.a.catalina.core.StandardEngine : Starting Servlet engine: [Apache Tomcat/10.1.30]
+2024-11-22T17:23:35.581+07:00 logId[] [main] INFO - o.a.c.c.C.[Tomcat].[localhost].[/] : Initializing Spring embedded WebApplicationContext
+2024-11-22T17:23:35.582+07:00 logId[] [main] INFO - o.s.b.w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 897 ms
+2024-11-22T17:23:36.026+07:00 logId[] [main] INFO - o.s.b.a.e.web.EndpointLinksResolver : Exposing 2 endpoints beneath base path '/actuator'
+2024-11-22T17:23:36.053+07:00 logId[] [main] INFO - o.a.coyote.http11.Http11NioProtocol : Starting ProtocolHandler ["http-nio-8080"]
+2024-11-22T17:23:36.066+07:00 logId[] [main] INFO - o.s.b.w.e.tomcat.TomcatWebServer : Tomcat started on port 8080 (http) with context path '/'
+2024-11-22T17:23:36.078+07:00 logId[] [main] INFO - r.tinkoff.fintech.FintechApplication : Started FintechApplication in 1.748 seconds (process running for 2.383)
+2024-11-22T17:23:36.464+07:00 logId[] [RMI TCP Connection(2)-25.13.210.249] INFO - o.a.c.c.C.[Tomcat].[localhost].[/] : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-11-22T17:23:36.465+07:00 logId[] [RMI TCP Connection(2)-25.13.210.249] INFO - o.s.web.servlet.DispatcherServlet : Initializing Servlet 'dispatcherServlet'
+2024-11-22T17:23:36.466+07:00 logId[] [RMI TCP Connection(2)-25.13.210.249] INFO - o.s.web.servlet.DispatcherServlet : Completed initialization in 1 ms
+2024-11-22T17:23:41.200+07:00 logId[55804a2b-3ca4-4af5-98f2-e14fc3b40d59] [http-nio-8080-exec-1] INFO - r.t.f.controller.HomeworkController : Log info
+2024-11-22T17:23:41.200+07:00 logId[55804a2b-3ca4-4af5-98f2-e14fc3b40d59] [http-nio-8080-exec-1] WARN - r.t.f.controller.HomeworkController : Log warn
+2024-11-22T17:23:41.200+07:00 logId[55804a2b-3ca4-4af5-98f2-e14fc3b40d59] [http-nio-8080-exec-1] ERROR - r.t.f.controller.HomeworkController : Log error
+2024-11-22T17:26:17.379+07:00 logId[] [main] INFO - r.tinkoff.fintech.FintechApplication : Starting FintechApplication using Java 17.0.12 with PID 13672 (D:\Programming\Fintech\build\classes\java\main started by Danya in D:\Programming\Fintech)
+2024-11-22T17:26:17.380+07:00 logId[] [main] INFO - r.tinkoff.fintech.FintechApplication : No active profile set, falling back to 1 default profile: "default"
+2024-11-22T17:26:18.392+07:00 logId[] [main] INFO - o.s.b.w.e.tomcat.TomcatWebServer : Tomcat initialized with port 8080 (http)
+2024-11-22T17:26:18.401+07:00 logId[] [main] INFO - o.a.coyote.http11.Http11NioProtocol : Initializing ProtocolHandler ["http-nio-8080"]
+2024-11-22T17:26:18.403+07:00 logId[] [main] INFO - o.a.catalina.core.StandardService : Starting service [Tomcat]
+2024-11-22T17:26:18.403+07:00 logId[] [main] INFO - o.a.catalina.core.StandardEngine : Starting Servlet engine: [Apache Tomcat/10.1.30]
+2024-11-22T17:26:18.466+07:00 logId[] [main] INFO - o.a.c.c.C.[Tomcat].[localhost].[/] : Initializing Spring embedded WebApplicationContext
+2024-11-22T17:26:18.467+07:00 logId[] [main] INFO - o.s.b.w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1035 ms
+2024-11-22T17:26:18.972+07:00 logId[] [main] INFO - o.s.b.a.e.web.EndpointLinksResolver : Exposing 2 endpoints beneath base path '/actuator'
+2024-11-22T17:26:19.003+07:00 logId[] [main] INFO - o.a.coyote.http11.Http11NioProtocol : Starting ProtocolHandler ["http-nio-8080"]
+2024-11-22T17:26:19.020+07:00 logId[] [main] INFO - o.s.b.w.e.tomcat.TomcatWebServer : Tomcat started on port 8080 (http) with context path '/'
+2024-11-22T17:26:19.031+07:00 logId[] [main] INFO - r.tinkoff.fintech.FintechApplication : Started FintechApplication in 1.932 seconds (process running for 2.744)
+2024-11-22T17:26:19.551+07:00 logId[] [RMI TCP Connection(6)-25.13.210.249] INFO - o.a.c.c.C.[Tomcat].[localhost].[/] : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-11-22T17:26:19.551+07:00 logId[] [RMI TCP Connection(6)-25.13.210.249] INFO - o.s.web.servlet.DispatcherServlet : Initializing Servlet 'dispatcherServlet'
+2024-11-22T17:26:19.553+07:00 logId[] [RMI TCP Connection(6)-25.13.210.249] INFO - o.s.web.servlet.DispatcherServlet : Completed initialization in 1 ms
