@@ -29,6 +29,7 @@ dependencies {
 	implementation "io.micrometer:micrometer-core:${micrometerVersion}"
 	implementation "io.micrometer:micrometer-registry-prometheus:${micrometerVersion}"
 	implementation 'net.logstash.logback:logstash-logback-encoder:8.0'
+	implementation 'ch.qos.logback:logback-classic:1.5.12'
 
 	annotationProcessor 'org.projectlombok:lombok'
 }

@@ -7,8 +7,3 @@ management:
     metrics:
       export:
         enabled: true
-
-spring:
-  logstash:
-    host: localhost
-    port: 5044
